@@ -1,0 +1,118 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			/* main {
+				width: 960px;
+			}
+			ul.posts {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul.posts li {
+				width: calc(50% - 1rem);
+			}
+			ul.posts li * {
+				text-decoration: none;
+				transition: 0.2s ease;
+			}
+			ul.posts li:first-child {
+				width: 100%;
+				margin-bottom: 1rem;
+				text-align: center;
+			}
+			ul.posts li:first-child img {
+				width: 100%;
+			}
+			ul.posts li:first-child .title {
+				font-size: 2.369rem;
+			}
+			ul.posts li img {
+				margin-bottom: 0.5rem;
+				border-radius: 12px;
+			}
+			ul.posts li a {
+				display: block;
+			}
+			.title {
+				margin: 0;
+				color: rgb(var(--black));
+				line-height: 1;
+			}
+			.date {
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+			ul.posts li a:hover h4,
+			ul.posts li a:hover .date {
+				color: rgb(var(--accent));
+			}
+			ul.posts a:hover img {
+				box-shadow: var(--box-shadow);
+			}
+			@media (max-width: 720px) {
+				ul.posts {
+					gap: 0.5em;
+				}
+				ul.posts li {
+					width: 100%;
+					text-align: center;
+				}
+				ul.posts li:first-child {
+					margin-bottom: 0;
+				}
+				ul.posts li:first-child .title {
+					font-size: 1.563em;
+				}
+			} */
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<ul class="posts">
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									<img width={720} height={360} src={post.data.heroImage} alt="" />
+									<h4 class="title">{post.data.title}</h4>
+									<p class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+								</a>
+								{post.data.tags && (
+                                    <ul class="tags flex flex-row gap-2 space-y-2 mt-2">
+                                        {post.data.tags.map((tag) => (
+                                            <li class="inline-block">{tag}</li>
+                                        ))}
+                                    </ul>
+                                )}
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
