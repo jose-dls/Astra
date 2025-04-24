@@ -1,4 +1,61 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-lm: oklch(0.95 0.0046 78.3);			/* Lightmode Default */
+	--color-lm-2: oklch(0.84 0.0195 67.56);			/* Lightmode Default 2 */
+	--color-lm-bg: oklch(0.95 0.0046 78.3);			/* Lightmode Background */
+	--color-lm-hd: oklch(0.84 0.0195 67.56);		/* Lightmode Header */
+	--color-lm-ft: oklch(0.84 0.0195 67.56);		/* Lightmode Footer */
+	--color-lm-txt: oklch(0.1 0 0);					/* Lightmode Text */
+	--color-lm-accent: oklch(0.32 0.0754 252.4);	/* Lightmode Accent */
+	
+	--color-dm: ;			/* Darkmode Default */
+	--color-dm-2: ;			/* Darkmode Default 2 */
+	--color-dm-bg: ;				/* Darkmode Background */
+	--color-dm-hd: ;				/* Darkmode Header */
+	--color-dm-ft: ;				/* Darkmode Footer */
+	--color-dm-txt: ;				/* Lightmode Text */
+	--color-dm-accent: ;	/* Lightmode Accent */
+}
+
+@font-face {
+	font-family: 'Satoshi';
+	src: url('/fonts/Satoshi-Regular.woff2') format('woff2'),
+		url('/fonts/Satoshi-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Satoshi';
+	src: url('/fonts/Satoshi-Bold.woff2') format('woff2'),
+		url('/fonts/Satoshi-Bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--color-bg: #ffffff;
+	--color-fg: #1a202c;
+	--color-primary: #2563eb;
+	--color-secondary: #64748b;
+	--color-accent: #f59e42;
+}
+
+.dark {
+	--color-bg: #1a202c;
+	--color-fg: #f1f5f9;
+	--color-primary: #60a5fa;
+	--color-secondary: #94a3b8;
+	--color-accent: #fbbf24;
+}
+
+body {
+	font-family: 'Satoshi', sans-serif;
+}
 
 /*
   The CSS in this style tag is based off of Bear Blog's default CSS.
@@ -172,14 +229,14 @@ hr {
 	height: 1px;
 	width: 1px;
 	overflow: hidden; */
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	/* clip: rect(1px 1px 1px 1px); */
-	/* maybe deprecated but we need to support legacy browsers */
-	/* clip: rect(1px, 1px, 1px, 1px); */
-	/* modern browsers, clip-path works inwards from each corner */
-	/* clip-path: inset(50%); */
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	/* white-space: nowrap;
+/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+/* clip: rect(1px 1px 1px 1px); */
+/* maybe deprecated but we need to support legacy browsers */
+/* clip: rect(1px, 1px, 1px, 1px); */
+/* modern browsers, clip-path works inwards from each corner */
+/* clip-path: inset(50%); */
+/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+/* white-space: nowrap;
 } */
 
 /*
