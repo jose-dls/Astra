@@ -1,14 +1,21 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const tagCounts: Record<string, number> = {};
+posts.forEach((post) => {
+	(post.data.tags || []).forEach((tag) => {
+		tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+	});
+});
+const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 ---
 
 <!doctype html>
@@ -16,32 +23,68 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="bg-lm-bg dark:bg-dm-bg">
+
+	<body
+		class="bg-lm-bg dark:bg-dm-bg min-h-dvh flex flex-col items-center justify-between"
+	>
 		<Header />
-		<main>
-			<section>
-				<ul class="posts">
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-								{post.data.tags && (
-                                    <ul class="tags flex flex-row gap-2 space-y-2 mt-2">
-                                        {post.data.tags.map((tag) => (
-                                            <li class="inline-block">{tag}</li>
-                                        ))}
-                                    </ul>
-                                )}
-							</li>
-						))
-					}
-				</ul>
+		<main class="grow flex-1 h-fit">
+			<section class="h-fit flex flex-col">
+				<section
+					class="container-title flex flex-col items-center h-fit"
+				>
+					<div class="w-[70vw] flex flex-col items-center py-10">
+						<h1 class="text-3xl font-bold">Blog Posts</h1>
+					</div>
+				</section>
+				<div class="posts-section flex flex-row">
+					<article class="container-posts h-full">
+						<ul class="grid gap-5 grid-cols-1 lg:grid-cols-2">
+							{
+								posts.map((post) => (
+									<li>
+										<a href={`/blog/${post.id}/`}>
+											<img
+												width={720}
+												height={360}
+												src={post.data.heroImage}
+												alt=""
+											/>
+											<h4 class="title">
+												{post.data.title}
+											</h4>
+											<p class="date">
+												<FormattedDate
+													date={post.data.pubDate}
+												/>
+											</p>
+										</a>
+										{post.data.tags && (
+											<ul class="tags flex flex-row gap-2 space-y-2 mt-2">
+												{post.data.tags.map((tag) => (
+													<li class="inline-block">
+														{tag}
+													</li>
+												))}
+											</ul>
+										)}
+									</li>
+								))
+							}
+						</ul>
+					</article>
+					<aside class="tags w-100 h-100">
+						<ul>
+							{
+								sortedTags.map(([tag, count]) => (
+									<li class="inline-block">
+										{tag} ({count})
+									</li>
+								))
+							}
+						</ul>
+					</aside>
+				</div>
 			</section>
 		</main>
 		<Footer />

@@ -3,31 +3,20 @@ import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import Socials from "./Socials.astro";
 import SocialsDrop from "./SocialsDrop.astro";
-import Wireframe from "./Wireframe.astro";
 ---
 
 <!-- Desktop Header -->
-<header class="bg-lm-hd dark:bg-dm-hd w-full m-0 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-	<nav class="flex flex-row justify-between items-center h-20">
-		<Wireframe>
-			<h2 class="m-0 text-3xl font-bold"><a href="/">{SITE_TITLE}</a></h2>
-		</Wireframe>
-		
-		<Wireframe>
-			<div class="internal-links text-xl flex flex-row gap-5">
-				<HeaderLink href="/">Home</HeaderLink>
-				<HeaderLink href="/blog">Blog</HeaderLink>
-				<HeaderLink href="/about">About</HeaderLink>
-			</div>
-		</Wireframe>
-
-		<Wireframe>
-			<Socials class="hidden md:flex" />
-			<SocialsDrop class="md:hidden" />
-		</Wireframe>
+<header
+	class="bg-lm-hd dark:bg-dm-hd w-full m-0 p-5 shadow-[0_2px_8px_rgba(0,0,0,0.05)]"
+>
+	<nav class="flex flex-row justify-between items-center">
+		<h2 class="w-1/6 m-0 text-3xl font-bold"><a href="/">{SITE_TITLE}</a></h2>
+		<div class="internal-links text-xl flex flex-row gap-5">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+		</div>
+		<Socials class="w-1/6 justify-end hidden md:flex" />
+		<SocialsDrop class="w-1/6 md:hidden" />
 	</nav>
-</header>
-<!-- Mobile Header -->
-<header class="block md:hidden">
-
 </header>
