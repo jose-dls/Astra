@@ -6,22 +6,242 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 
+const formatTag = (tag: string) => {
+	return tag
+		.toLowerCase()
+		.split(" ")
+		.map((word) => word.charAt(0)?.toUpperCase() + word.slice(1))
+		.join(" ");
+};
+
 const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const tagCounts: Record<string, number> = {};
+const uniqueTags = new Set<string>();
 posts.forEach((post) => {
 	(post.data.tags || []).forEach((tag) => {
-		tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+		const normalizedTag = tag?.toLowerCase();
+		tagCounts[normalizedTag] = (tagCounts[normalizedTag] || 0) + 1;
+		uniqueTags.add(normalizedTag);
 	});
 });
 const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+const selectedTags = new Set<string>();
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script>
+			// Configuration for pagination
+			const postsPerPage = 4; // Adjust this value to set how many posts per page
+			let currentPage = 1;
+
+			// Function to paginate posts
+			function paginatePosts() {
+				const allPosts = document.querySelectorAll(".post-item");
+				const totalPosts = allPosts.length;
+				const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+				// Hide all posts
+				allPosts.forEach(
+					(post) => ((post as HTMLElement).style.display = "none"),
+				);
+
+				// Show posts for the current page
+				const startIdx = (currentPage - 1) * postsPerPage;
+				const endIdx = Math.min(startIdx + postsPerPage, totalPosts);
+				for (let i = startIdx; i < endIdx; i++) {
+					(allPosts[i] as HTMLElement).style.display = "block";
+				}
+
+				// Update pagination controls
+				updatePaginationControls(totalPages);
+			}
+
+			// Function to update the pagination controls (next/previous buttons)
+			function updatePaginationControls(totalPages: number) {
+				const prevBtn = document.querySelector(".pagination-prev");
+				const nextBtn = document.querySelector(".pagination-next");
+				const pageNumbersContainer = document.querySelector(
+					".pagination-numbers",
+				);
+
+				// Enable/disable buttons based on current page
+				(prevBtn as HTMLButtonElement).disabled = currentPage === 1;
+				(nextBtn as HTMLButtonElement).disabled =
+					currentPage === totalPages;
+
+				// Clear existing page numbers
+				if (pageNumbersContainer) {
+					pageNumbersContainer.innerHTML = "";
+				}
+
+				// Generate page number buttons
+				for (let i = 1; i <= totalPages; i++) {
+					const pageBtn = document.createElement("button");
+					pageBtn.textContent = i.toString();
+					pageBtn.classList.add("pagination-btn");
+					pageBtn.onclick = () => {
+						currentPage = i;
+						paginatePosts();
+					};
+					if (i === currentPage) {
+						pageBtn.classList.add("active");
+					}
+					if (pageNumbersContainer) {
+						pageNumbersContainer.appendChild(pageBtn);
+					}
+				}
+			}
+
+			// Event listeners for previous and next buttons
+			const pBtns = document.querySelector(".pagination-prev");
+			if (pBtns) {
+				(pBtns as HTMLButtonElement).onclick = () => {
+					if (currentPage > 1) {
+						currentPage--;
+						paginatePosts();
+					}
+				};
+			}
+
+			const nBtns = document.querySelector(".pagination-next");
+			if (nBtns) {
+				(nBtns as HTMLButtonElement).onclick = () => {
+					const totalPosts =
+						document.querySelectorAll(".post-item").length;
+					const totalPages = Math.ceil(totalPosts / postsPerPage);
+					if (currentPage < totalPages) {
+						currentPage++;
+						paginatePosts();
+					}
+				};
+			}
+
+			// Initialize pagination on page load
+			window.onload = paginatePosts;
+			declare global {
+				interface Window {
+					filterPosts: (tag: string) => void;
+					toggleFilterMode: () => void;
+				}
+			}
+			let selectedTags = new Set<string>();
+			let useUnion = false; // false = intersection (AND), true = union (OR)
+
+			function formatTag(tag: string): string {
+				return tag
+					.toLowerCase()
+					.split(" ")
+					.map(
+						(word) => word.charAt(0)?.toUpperCase() + word.slice(1),
+					)
+					.join(" ");
+			}
+
+			window.toggleFilterMode = function () {
+				useUnion = !useUnion;
+				const toggleBtn = document.querySelector(".filter-mode-toggle");
+				if (toggleBtn) {
+					toggleBtn.textContent = useUnion ? "OR" : "AND";
+					toggleBtn.classList.toggle("bg-blue-500");
+				}
+				// Update the filter without re-applying all tags
+				const posts = document.querySelectorAll(".post-item");
+				posts.forEach((post) => {
+					const postTags =
+						(post as HTMLElement).dataset.tags
+							?.toLowerCase()
+							.split(",/,") || [];
+
+					const shouldShow =
+						selectedTags.size === 0 ||
+						(useUnion
+							? Array.from(selectedTags).some((tag) =>
+									postTags.includes(tag.toLowerCase()),
+								)
+							: Array.from(selectedTags).every((tag) =>
+									postTags.includes(tag.toLowerCase()),
+								));
+
+					(post as HTMLElement).style.display = shouldShow
+						? "block"
+						: "none";
+				});
+			};
+
+			window.filterPosts = function (tag: string) {
+				if (!tag) return;
+
+				tag = tag.toLowerCase();
+
+				// Toggle tag selection
+				if (selectedTags.has(tag)) {
+					selectedTags.delete(tag.toLowerCase());
+				} else {
+					selectedTags.add(tag.toLowerCase());
+				}
+
+				// Update checkbox state
+				const checkbox = document.querySelector(
+					`input[onchange="filterPosts('${tag}')"]`,
+				) as HTMLInputElement;
+				if (checkbox) {
+					checkbox.checked = selectedTags.has(tag);
+				}
+
+				// Update active tags display
+				const activeTagsEl = document.querySelector(".active-tags");
+				if (activeTagsEl) {
+					activeTagsEl.innerHTML =
+						selectedTags.size > 0
+							? `Active Tags: ${Array.from(selectedTags)
+									.map(
+										(t) =>
+											`<button class="active-tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent" 
+								onclick="filterPosts('${t.toLowerCase()}')">${formatTag(t)}</button>`,
+									)
+									.join(", ")}`
+							: "";
+				}
+
+				// Update button styles
+				document.querySelectorAll(".tag-btn").forEach((btn) => {
+					const btnTag = (btn as HTMLElement).dataset.tag;
+					if (selectedTags.has(btnTag!)) {
+						btn.classList.add("text-blue-500", "font-bold");
+					} else {
+						btn.classList.remove("text-blue-500", "font-bold");
+					}
+				});
+
+				const posts = document.querySelectorAll(".post-item");
+				posts.forEach((post) => {
+					const postTags =
+						(post as HTMLElement).dataset.tags
+							?.toLowerCase()
+							.split(",/,") || [];
+
+					// Show post based on filter mode
+					const shouldShow =
+						selectedTags.size === 0 ||
+						(useUnion
+							? Array.from(selectedTags).some((tag) =>
+									postTags.includes(tag.toLowerCase()),
+								) // OR
+							: Array.from(selectedTags).every((tag) =>
+									postTags.includes(tag.toLowerCase()),
+								)); // AND
+
+					(post as HTMLElement).style.display = shouldShow
+						? "block"
+						: "none";
+				});
+			};
+		</script>
 	</head>
 
 	<body
@@ -31,18 +251,29 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 		<main class="grow flex-1 h-fit">
 			<section class="h-fit flex flex-col">
 				<section
-					class="container-title flex flex-col items-center h-fit"
+					class="container-title bg-lm-2 dark:bg-dm-2 w-[90vw] flex flex-col items-center h-fit m-10"
 				>
-					<div class="w-[70vw] flex flex-col items-center py-10">
+					<div class="flex flex-col items-center py-10">
 						<h1 class="text-3xl font-bold">Blog Posts</h1>
+						<h2 class="active-tags h-10"></h2>
 					</div>
 				</section>
-				<div class="posts-section flex flex-row">
+				<div class="posts-section flex flex-row m-10 justify-center">
 					<article class="container-posts h-full">
-						<ul class="grid gap-5 grid-cols-1 lg:grid-cols-2">
+						<ul
+							class="grid gap-5 grid-cols-1 lg:grid-cols-2"
+							id="postList"
+						>
 							{
 								posts.map((post) => (
-									<li>
+									<li
+										class="post-item"
+										data-tags={
+											post?.data?.tags
+												?.join(",/,")
+												.toLowerCase() || ""
+										}
+									>
 										<a href={`/blog/${post.id}/`}>
 											<img
 												width={720}
@@ -63,7 +294,13 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 											<ul class="tags flex flex-row gap-2 space-y-2 mt-2">
 												{post.data.tags.map((tag) => (
 													<li class="inline-block">
-														{tag}
+														<button
+															class="tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent"
+															data-tag={tag.toLowerCase()}
+															onclick={`filterPosts('${tag.toLowerCase()}')`}
+														>
+															{formatTag(tag)}
+														</button>
 													</li>
 												))}
 											</ul>
@@ -72,13 +309,57 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 								))
 							}
 						</ul>
+						<div
+							class="pagination-controls flex justify-center mt-10"
+						>
+							<button
+								class="pagination-prev px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-l-md"
+								disabled
+							>
+								Previous
+							</button>
+							<div class="pagination-numbers flex gap-2">
+								<!-- Page number buttons will be injected here -->
+							</div>
+							<button
+								class="pagination-next px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-r-md"
+								disabled
+							>
+								Next
+							</button>
+						</div>
 					</article>
-					<aside class="tags w-100 h-100">
-						<ul>
+					<aside
+						class="p-10 m-10 tags w-100 h-100 bg-lm-2 dark:bg-dm-2 hidden lg:block"
+					>
+						<div
+							class="pb-5 flex flex-row justify-between items-center flex-wrap"
+						>
+							<h2 class="text-2xl font-bold">Tags</h2>
+							<div class="flex flex-row items-center gap-2">
+								<span class="text-sm">Filter Mode:</span>
+								<button
+									class="filter-mode-toggle px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-sm font-bold"
+									onclick="toggleFilterMode()"
+								>
+									AND
+								</button>
+							</div>
+						</div>
+						<ul class="flex flex-col gap-2">
 							{
 								sortedTags.map(([tag, count]) => (
 									<li class="inline-block">
-										{tag} ({count})
+										<label class="flex flex-row items-center gap-2 cursor-pointer">
+											<input
+												type="checkbox"
+												class="w-4 h-4"
+												onchange={`filterPosts('${tag.toLowerCase()}')`}
+											/>
+											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent">
+												{formatTag(tag)} ({count})
+											</span>
+										</label>
 									</li>
 								))
 							}

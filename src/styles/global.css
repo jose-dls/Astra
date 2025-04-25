@@ -9,14 +9,16 @@
 	--color-lm-ft: oklch(0.84 0.0195 67.56);		/* Lightmode Footer */
 	--color-lm-txt: oklch(0.1 0 0);					/* Lightmode Text */
 	--color-lm-accent: oklch(0.32 0.0754 252.4);	/* Lightmode Accent */
+	--color-lm-selected: oklch(0.32 0.0754 252.4);	/* Lightmode Selected */
 	
 	--color-dm: ;			/* Darkmode Default */
 	--color-dm-2: ;			/* Darkmode Default 2 */
 	--color-dm-bg: ;				/* Darkmode Background */
 	--color-dm-hd: ;				/* Darkmode Header */
 	--color-dm-ft: ;				/* Darkmode Footer */
-	--color-dm-txt: ;				/* Lightmode Text */
-	--color-dm-accent: ;	/* Lightmode Accent */
+	--color-dm-txt: ;				/* Darkmode Text */
+	--color-dm-accent: ;	/* Darkmode Accent */
+	--color-dm-selected: ;	/* Darkmode Selected */
 }
 
 @font-face {
