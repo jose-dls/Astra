@@ -11,7 +11,7 @@ const blog = defineCollection({
 		tags: z
 			.array(z.string())
 			.optional()
-			.transform((tags) => tags ? [...new Set(tags)] : []),
+			.transform((tags) => tags ? [...new Set(tags)] : []).optional(),
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),

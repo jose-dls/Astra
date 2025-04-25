@@ -111,7 +111,7 @@ const selectedTags = new Set<string>();
 						paginatePosts();
 					};
 					if (i === currentPage) {
-						pageBtn.classList.add("active");
+						pageBtn.classList.add("text-lm-2", "dark:text-dm-2")
 					}
 					if (pageNumbersContainer) {
 						pageNumbersContainer.appendChild(pageBtn);
@@ -169,7 +169,6 @@ const selectedTags = new Set<string>();
 				const toggleBtn = document.querySelector(".filter-mode-toggle");
 				if (toggleBtn) {
 					toggleBtn.textContent = useUnion ? "OR" : "AND";
-					toggleBtn.classList.toggle("bg-blue-500");
 				}
 				// Update the filter without re-applying all tags
 				const posts = document.querySelectorAll(".post-item");
@@ -236,9 +235,9 @@ const selectedTags = new Set<string>();
 				document.querySelectorAll(".tag-btn").forEach((btn) => {
 					const btnTag = (btn as HTMLElement).dataset.tag;
 					if (selectedTags.has(btnTag!)) {
-						btn.classList.add("text-blue-500", "font-bold");
+						btn.classList.add("text-lm-2", "dark:text-dm-2", "font-bold");
 					} else {
-						btn.classList.remove("text-blue-500", "font-bold");
+						btn.classList.remove("text-lm-2", "dark:text-dm-2", "font-bold");
 					}
 				});
 
@@ -269,7 +268,7 @@ const selectedTags = new Set<string>();
 			};
 		</script>
 		<style>
-			.pagination-btn {
+			/* .pagination-btn {
 				padding: 0.5rem 1rem;
 				background-color: #f3f4f6;
 				border-radius: 0.375rem;
@@ -280,7 +279,7 @@ const selectedTags = new Set<string>();
 				background-color: #e5e7eb;
 			}
 
-			.pagination-btn.active {
+			button.pagination-btn.active {
 				font-weight: bold;
 				color: #2563eb;
 			}
@@ -291,12 +290,12 @@ const selectedTags = new Set<string>();
 				background-color: #e5e7eb;
 				border-radius: 0.375rem;
 				cursor: pointer;
-			}
-
+			} */
+			
 			.pagination-prev[disabled],
 			.pagination-next[disabled] {
 				cursor: not-allowed;
-				background-color: #d1d5db;
+				opacity: 0.5;
 			}
 		</style>
 	</head>
@@ -372,10 +371,10 @@ const selectedTags = new Set<string>();
 							}
 						</ul>
 						<div
-							class="pagination-controls flex justify-center mt-10"
+							class="pagination-controls flex justify-center gap-5 mt-10"
 						>
 							<button
-								class="pagination-prev px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-l-md"
+								class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md"
 								disabled
 							>
 								Previous
@@ -384,7 +383,7 @@ const selectedTags = new Set<string>();
 								<!-- Page number buttons will be injected here -->
 							</div>
 							<button
-								class="pagination-next px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-r-md"
+								class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md"
 								disabled
 							>
 								Next
