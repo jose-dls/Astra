@@ -112,7 +112,7 @@ const selectedTags = new Set<string>();
 						paginatePosts();
 					};
 					if (i === currentPage) {
-						pageBtn.classList.add("text-lm-2", "dark:text-dm-2");
+						pageBtn.classList.add("text-lm-accent", "dark:text-dm-accent");
 					}
 					if (pageNumbersContainer) {
 						pageNumbersContainer.appendChild(pageBtn);
@@ -234,7 +234,7 @@ const selectedTags = new Set<string>();
 									.map(
 										(t) =>
 											`<button
-  class="inline-flex items-center rounded-md bg-lm-tag-unselected dark:bg-dm-tag-unselected font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+  class="inline-flex items-center rounded-md bg-lm-tag-unselected dark:bg-dm-bg dark:outline-1 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
   onclick="filterPosts('${t.toLowerCase()}')"
 >
   <span class="mr-2">
@@ -248,27 +248,29 @@ const selectedTags = new Set<string>();
 				}
 
 				// Update button styles
-				document.querySelectorAll(".tag-btn").forEach((btn) => {
+				document.querySelectorAll(".tag-btn-post").forEach((btn) => {
 					const btnTag = (btn as HTMLElement).dataset.tag;
 					if (selectedTags.has(btnTag!)) {
 						btn.classList.add(
 							"bg-lm-2",
-							"dark:bg-dm-2",
+							"dark:bg-dm-txt",
+							"dark:text-dm-bg",
 							"font-bold",
 						);
 						btn.classList.remove(
 							"bg-lm-tag-unselected",
-							"dark:bg-dm-tag-unselected",
+							"dark:bg-dm-bg",
 						);
 					} else {
 						btn.classList.remove(
 							"bg-lm-2",
-							"dark:bg-dm-2",
+							"dark:bg-dm-txt",
+							"dark:text-dm-bg",
 							"font-bold",
 						);
 						btn.classList.add(
 							"bg-lm-tag-unselected",
-							"dark:bg-dm-tag-unselected",
+							"dark:bg-dm-bg",
 						);
 					}
 				});
@@ -434,7 +436,7 @@ const selectedTags = new Set<string>();
 												post.data.tags.map((tag) => (
 													<li class="inlineblock">
 														<button
-															class="tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-tag-unselected dark:bg-dm-tag-unselected inline-flex items-center rounded-md here font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+															class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-tag-unselected dark:bg-dm-bg dark:outline-1 inline-flex items-center rounded-md here font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
 															data-tag={tag.toLowerCase()}
 															onclick={`filterPosts('${tag.toLowerCase()}')`}
 														>
@@ -519,7 +521,7 @@ const selectedTags = new Set<string>();
 										<label class="flex flex-row items-center gap-2 cursor-pointer">
 											<input
 												type="checkbox"
-												class="m-w-4 m-h-4"
+												class="m-w-4 m-h-4 accent-lm-2 dark:accent-dm-2 border-2 border-lm-txt dark:border-dm-txt"
 												onchange={`filterPosts('${tag.toLowerCase()}')`}
 											/>
 											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
