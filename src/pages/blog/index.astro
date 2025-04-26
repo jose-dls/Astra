@@ -111,7 +111,7 @@ const selectedTags = new Set<string>();
 						paginatePosts();
 					};
 					if (i === currentPage) {
-						pageBtn.classList.add("text-lm-2", "dark:text-dm-2")
+						pageBtn.classList.add("text-lm-2", "dark:text-dm-2");
 					}
 					if (pageNumbersContainer) {
 						pageNumbersContainer.appendChild(pageBtn);
@@ -166,9 +166,13 @@ const selectedTags = new Set<string>();
 
 			window.toggleFilterMode = function () {
 				useUnion = !useUnion;
-				const toggleBtn = document.querySelector(".filter-mode-toggle");
+				const toggleBtn = document.querySelectorAll(
+					".filter-mode-toggle",
+				);
 				if (toggleBtn) {
-					toggleBtn.textContent = useUnion ? "OR" : "AND";
+					toggleBtn.forEach((btn) => {
+						btn.textContent = useUnion ? "OR" : "AND";
+					});
 				}
 				// Update the filter without re-applying all tags
 				const posts = document.querySelectorAll(".post-item");
@@ -209,11 +213,15 @@ const selectedTags = new Set<string>();
 				}
 
 				// Update checkbox state
-				const checkbox = document.querySelector(
+				const checkbox = document.querySelectorAll(
 					`input[onchange="filterPosts('${tag}')"]`,
-				) as HTMLInputElement;
+				);
 				if (checkbox) {
-					checkbox.checked = selectedTags.has(tag);
+					checkbox.forEach((cb) => {
+						(cb as HTMLInputElement).checked = selectedTags.has(
+							tag.toLowerCase(),
+						);
+					});
 				}
 
 				// Update active tags display
@@ -221,13 +229,20 @@ const selectedTags = new Set<string>();
 				if (activeTagsEl) {
 					activeTagsEl.innerHTML =
 						selectedTags.size > 0
-							? `Active Tags: ${Array.from(selectedTags)
+							? `<p>Active Tags:</p> ${Array.from(selectedTags)
 									.map(
 										(t) =>
-											`<button class="active-tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent" 
-								onclick="filterPosts('${t.toLowerCase()}')">${formatTag(t)}</button>`,
+											`<button
+  class="inline-flex items-center rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+  onclick="filterPosts('${t.toLowerCase()}')"
+>
+  <span class="mr-2">
+    <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  </span>
+  ${formatTag(t)}
+</button>`,
 									)
-									.join(", ")}`
+									.join(" ")}`
 							: "";
 				}
 
@@ -235,9 +250,17 @@ const selectedTags = new Set<string>();
 				document.querySelectorAll(".tag-btn").forEach((btn) => {
 					const btnTag = (btn as HTMLElement).dataset.tag;
 					if (selectedTags.has(btnTag!)) {
-						btn.classList.add("text-lm-2", "dark:text-dm-2", "font-bold");
+						btn.classList.add(
+							"bg-lm-2",
+							"dark:bg-dm-2",
+							"font-bold",
+						);
 					} else {
-						btn.classList.remove("text-lm-2", "dark:text-dm-2", "font-bold");
+						btn.classList.remove(
+							"bg-lm-2",
+							"dark:bg-dm-2",
+							"font-bold",
+						);
 					}
 				});
 
@@ -268,30 +291,6 @@ const selectedTags = new Set<string>();
 			};
 		</script>
 		<style>
-			/* .pagination-btn {
-				padding: 0.5rem 1rem;
-				background-color: #f3f4f6;
-				border-radius: 0.375rem;
-				cursor: pointer;
-			}
-
-			.pagination-btn:hover {
-				background-color: #e5e7eb;
-			}
-
-			button.pagination-btn.active {
-				font-weight: bold;
-				color: #2563eb;
-			}
-
-			.pagination-prev,
-			.pagination-next {
-				padding: 0.5rem 1rem;
-				background-color: #e5e7eb;
-				border-radius: 0.375rem;
-				cursor: pointer;
-			} */
-			
 			.pagination-prev[disabled],
 			.pagination-next[disabled] {
 				cursor: not-allowed;
@@ -304,18 +303,83 @@ const selectedTags = new Set<string>();
 		class="bg-lm-bg dark:bg-dm-bg min-h-dvh flex flex-col items-center justify-between"
 	>
 		<Header />
-		<main class="grow flex-1 h-fit">
+		<main class="grow flex-1 h-fit w-[90vw]">
 			<section class="h-fit flex flex-col">
 				<section
-					class="container-title bg-lm-2 dark:bg-dm-2 w-[90vw] flex flex-col items-center h-fit m-10"
+					class="container-title bg-lm-2 dark:bg-dm-2 flex flex-col items-center h-fit m-10"
 				>
-					<div class="flex flex-col items-center py-10">
+					<div class="flex flex-col items-center py-10 w-full gap-5">
 						<h1 class="text-3xl font-bold">Blog Posts</h1>
-						<h2 class="active-tags h-10"></h2>
+						<h2
+							class="active-tags w-7/10 min-h-10 flex flex-row flex-wrap gap-2 items-center justify-center"
+						>
+						</h2>
 					</div>
 				</section>
-				<div class="posts-section flex flex-row m-10 justify-center">
-					<article class="container-posts h-full">
+				<div
+					class="posts-section flex flex-row m-10 justify-center flex-wrap lg:flex-nowrap"
+				>
+					<!-- Tags Filter Mobile -->
+					<aside
+						class="p-10 mb-10 tags w-full h-fit bg-lm-2 dark:bg-dm-2 block lg:hidden"
+					>
+						<div
+							class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
+							onclick="toggleTags()"
+						>
+							<h2
+								class="text-2xl font-bold flex flex-row items-center gap-2"
+							>
+								<span class="toggleTagsButton">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="size-6"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="m19.5 8.25-7.5 7.5-7.5-7.5"
+										></path>
+									</svg>
+								</span>
+								<p>Tags</p>
+							</h2>
+							<div class="flex flex-row items-center gap-2">
+								<span class="text-sm">Filter Mode:</span>
+								<button
+									class="filter-mode-toggle px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-sm font-bold"
+									onclick="toggleFilterMode()"
+								>
+									AND
+								</button>
+							</div>
+						</div>
+
+						<ul class="tagList flex flex-col gap-2 mt-3 hidden">
+							{
+								sortedTags.map(([tag, count]) => (
+									<li class="inline-block">
+										<label class="flex flex-row items-center gap-2 cursor-pointer">
+											<input
+												type="checkbox"
+												class="m-w-4 m-h-4"
+												onchange={`filterPosts('${tag.toLowerCase()}')`}
+											/>
+											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
+												{formatTag(tag)} ({count})
+											</span>
+										</label>
+									</li>
+								))
+							}
+						</ul>
+					</aside>
+					<!-- Posts -->
+					<article class="container-posts h-full lg:w-7/10">
 						<ul
 							class="grid gap-5 grid-cols-1 lg:grid-cols-2"
 							id="postList"
@@ -330,15 +394,26 @@ const selectedTags = new Set<string>();
 												.toLowerCase() || ""
 										}
 									>
-										<a href={`/blog/${post.id}/`}>
-											<img
-												width={720}
-												height={360}
-												src={post.data.heroImage}
-												alt=""
-											/>
+										<a
+											href={`/blog/${post.id}/`}
+											class="flex flex-col justify-center gap-2"
+										>
+											<div class="w-full outline-solid outline-1 flex flex-col items-center justify-center rounded-lg p-3">
+												<img
+													width={720}
+													height={360}
+													src={post.data.heroImage}
+													alt=""
+													class="rounded-lg"
+												/>
+											</div>
 											<h4 class="title">
-												{post.data.title}
+												asdfkjhasdkfj asdjfh
+												asjkdfhasjkdfh askjdh asdjkfhasl
+												kdfjaskljdf klasjdfkl
+												asdjflkasjdf klasjdf lkasdfjaskl
+												dfjaskldfj askldjfas kldfjfas
+												jkdf{post.data.title}
 											</h4>
 											<p class="date">
 												<FormattedDate
@@ -346,13 +421,13 @@ const selectedTags = new Set<string>();
 												/>
 											</p>
 										</a>
-										<ul class="tags flex flex-row gap-2 mt-2">
+										<ul class="tags flex flex-row flex-wrap gap-2 mt-2">
 											{post.data.tags &&
 											post.data.tags.length > 0 ? (
 												post.data.tags.map((tag) => (
 													<li class="inlineblock">
 														<button
-															class="tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent"
+															class="tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent inline-flex items-center rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
 															data-tag={tag.toLowerCase()}
 															onclick={`filterPosts('${tag.toLowerCase()}')`}
 														>
@@ -390,13 +465,35 @@ const selectedTags = new Set<string>();
 							</button>
 						</div>
 					</article>
+					<!-- Tags Filter Desktop -->
 					<aside
-						class="p-10 m-10 tags w-100 h-100 bg-lm-2 dark:bg-dm-2 hidden lg:block"
+						class="p-10 mx-10 tags w-100 h-fit bg-lm-2 dark:bg-dm-2 hidden lg:block w-3/10"
 					>
 						<div
-							class="pb-5 flex flex-row justify-between items-center flex-wrap"
+							class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
+							onclick="toggleTags()"
 						>
-							<h2 class="text-2xl font-bold">Tags</h2>
+							<h2
+								class="text-2xl font-bold flex flex-row items-center gap-2"
+							>
+								<span class="toggleTagsButton">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="size-6"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="m19.5 8.25-7.5 7.5-7.5-7.5"
+										></path>
+									</svg>
+								</span>
+								<p>Tags</p>
+							</h2>
 							<div class="flex flex-row items-center gap-2">
 								<span class="text-sm">Filter Mode:</span>
 								<button
@@ -407,17 +504,18 @@ const selectedTags = new Set<string>();
 								</button>
 							</div>
 						</div>
-						<ul class="flex flex-col gap-2">
+
+						<ul class="tagList flex flex-col gap-2 mt-3 hidden">
 							{
 								sortedTags.map(([tag, count]) => (
 									<li class="inline-block">
 										<label class="flex flex-row items-center gap-2 cursor-pointer">
 											<input
 												type="checkbox"
-												class="w-4 h-4"
+												class="m-w-4 m-h-4"
 												onchange={`filterPosts('${tag.toLowerCase()}')`}
 											/>
-											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent">
+											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
 												{formatTag(tag)} ({count})
 											</span>
 										</label>
@@ -426,6 +524,76 @@ const selectedTags = new Set<string>();
 							}
 						</ul>
 					</aside>
+					<script>
+						declare global {
+							interface Window {
+								toggleTags: () => void;
+							}
+						}
+						window.toggleTags = function () {
+							const tagList =
+								document.getElementsByClassName("tagList");
+							const toggleButton =
+								document.getElementsByClassName(
+									"toggleTagsButton",
+								);
+
+							if (tagList) {
+								// Toggle the visibility of the tag list
+								Array.from(tagList).forEach((element) => {
+									element.classList.toggle("hidden");
+								});
+
+								// Change the button text based on visibility
+								if (tagList[0].classList.contains("hidden")) {
+									if (toggleButton) {
+										Array.from(toggleButton).forEach(
+											(button) => {
+												button.innerHTML = `
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke-width="1.5"
+													stroke="currentColor"
+													class="size-6"
+												>
+													<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														d="m19.5 8.25-7.5 7.5-7.5-7.5"
+													/>
+												</svg>
+												`;
+											},
+										);
+									}
+								} else {
+									if (toggleButton) {
+										Array.from(toggleButton).forEach(
+											(button) => {
+												button.innerHTML = `<svg
+														xmlns="http://www.w3.org/2000/svg"
+														fill="none"
+														viewBox="0 0 24 24"
+														stroke-width="1.5"
+														stroke="currentColor"
+														class="size-6"
+													>
+  														<path
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															d="m4.5 15.75 7.5-7.5 7.5 7.5"
+														/>
+													</svg>
+													`;
+											},
+										);
+									}
+								}
+							}
+						};
+					</script>
 				</div>
 			</section>
 		</main>

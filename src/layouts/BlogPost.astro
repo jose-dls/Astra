@@ -22,8 +22,8 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 				<div class="hero-image flex flex-col items-center justify-between gap-5 mb-10">
 					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
 					<div class="title w-full flex flex-row items-center justify-between flex-wrap">
-						<h1 class="font-bold text-2xl">asasdf asdfasdfasdfas dfasdf asd{title}</h1>
-						<div class="date text-2xl">
+						<h1 class="font-bold text-2xl">{title}</h1>
+						<div class="date text-2xl text-right">
 							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
@@ -35,8 +35,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 						</div>
 					</div>
 				</div>
-				<div class="prose">
-					
+				<div class="markdown-blog">
 					<slot />
 				</div>
 			</article>

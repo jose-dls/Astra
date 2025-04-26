@@ -1,24 +1,43 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-	--color-lm: oklch(0.95 0.0046 78.3);			/* Lightmode Default */
-	--color-lm-2: oklch(0.84 0.0195 67.56);			/* Lightmode Default 2 */
-	--color-lm-bg: oklch(0.95 0.0046 78.3);			/* Lightmode Background */
-	--color-lm-hd: oklch(0.84 0.0195 67.56);		/* Lightmode Header */
-	--color-lm-ft: oklch(0.84 0.0195 67.56);		/* Lightmode Footer */
-	--color-lm-txt: oklch(0.1 0 0);					/* Lightmode Text */
-	--color-lm-accent: oklch(0.32 0.0754 252.4);	/* Lightmode Accent */
-	--color-lm-selected: oklch(0.32 0.0754 252.4);	/* Lightmode Selected */
-	
-	--color-dm: ;			/* Darkmode Default */
-	--color-dm-2: ;			/* Darkmode Default 2 */
-	--color-dm-bg: ;				/* Darkmode Background */
-	--color-dm-hd: ;				/* Darkmode Header */
-	--color-dm-ft: ;				/* Darkmode Footer */
-	--color-dm-txt: ;				/* Darkmode Text */
-	--color-dm-accent: ;	/* Darkmode Accent */
-	--color-dm-selected: ;	/* Darkmode Selected */
+	--color-lm: oklch(0.95 0.0046 78.3);
+	/* Lightmode Default */
+	--color-lm-2: oklch(0.84 0.0195 67.56);
+	/* Lightmode Default 2 */
+	--color-lm-bg: oklch(0.95 0.0046 78.3);
+	/* Lightmode Background */
+	--color-lm-hd: oklch(0.84 0.0195 67.56);
+	/* Lightmode Header */
+	--color-lm-ft: oklch(0.84 0.0195 67.56);
+	/* Lightmode Footer */
+	--color-lm-txt: oklch(0.1 0 0);
+	/* Lightmode Text */
+	--color-lm-accent: oklch(0.32 0.0754 252.4);
+	/* Lightmode Accent */
+	--color-lm-selected: oklch(0.32 0.0754 252.4);
+	/* Lightmode Selected */
+
+	--color-dm: ;
+	/* Darkmode Default */
+	--color-dm-2: ;
+	/* Darkmode Default 2 */
+	--color-dm-bg: ;
+	/* Darkmode Background */
+	--color-dm-hd: ;
+	/* Darkmode Header */
+	--color-dm-ft: ;
+	/* Darkmode Footer */
+	--color-dm-txt: ;
+	/* Darkmode Text */
+	--color-dm-accent: ;
+	/* Darkmode Accent */
+	--color-dm-selected: ;
+	/* Darkmode Selected */
 }
 
 @font-face {
@@ -37,6 +56,114 @@
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
+}
+
+.markdown-blog h1 {
+	@apply text-4xl font-bold mt-10 mb-6;
+}
+
+.markdown-blog h2 {
+	@apply text-3xl font-semibold mt-8 mb-5;
+}
+
+.markdown-blog h3 {
+	@apply text-2xl font-semibold mt-6 mb-4;
+}
+
+.markdown-blog h4 {
+	@apply text-xl font-semibold mt-5 mb-3;
+}
+
+.markdown-blog h5 {
+	@apply text-lg font-semibold mt-4 mb-2;
+}
+
+.markdown-blog h6 {
+	@apply text-base font-semibold mt-3 mb-1;
+}
+
+.markdown-blog p {
+	@apply text-base leading-relaxed mb-4;
+}
+
+.markdown-blog img {
+	@apply max-w-full rounded-md shadow-md mb-6;
+	/* Basic styling for images */
+}
+
+.markdown-blog blockquote {
+	@apply border-l-4 border-gray-300 pl-4 italic mb-4;
+}
+
+.markdown-blog blockquote>p {
+	@apply mb-2;
+	/* Adjust paragraph spacing within blockquote */
+}
+
+.markdown-blog blockquote cite {
+	@apply text-sm text-gray-500 not-italic;
+}
+
+.markdown-blog blockquote br {
+	@apply hidden;
+	/* Optional: Hide the <br> used for attribution separation */
+}
+
+.markdown-blog table {
+	@apply w-full text-left border-collapse mb-6;
+}
+
+.markdown-blog th {
+	@apply py-2 px-3 font-semibold border-b-2 border-gray-300;
+}
+
+.markdown-blog td {
+	@apply py-2 px-3 border-b border-gray-200;
+}
+
+.markdown-blog code {
+	@apply font-mono text-sm bg-gray-100 rounded py-1 px-2;
+}
+
+.markdown-blog pre {
+	@apply bg-gray-200 rounded-md py-4 px-6 overflow-x-auto mb-6;
+}
+
+.markdown-blog pre>code {
+	@apply bg-transparent p-0;
+	/* Remove background and padding from inline code within pre */
+}
+
+.markdown-blog ol {
+	@apply list-decimal pl-6 mb-4;
+}
+
+.markdown-blog ul {
+	@apply list-disc pl-6 mb-4;
+}
+
+.markdown-blog li {
+	@apply mb-2;
+}
+
+.markdown-blog abbr {
+	@apply border-b border-dashed border-gray-500 cursor-help;
+}
+
+.markdown-blog sub {
+	@apply align-sub text-xs;
+}
+
+.markdown-blog sup {
+	@apply align-super text-xs;
+}
+
+.markdown-blog kbd {
+	@apply inline-block bg-gray-200 text-gray-800 font-mono text-sm rounded py-1 px-2;
+}
+
+.markdown-blog mark {
+	@apply bg-yellow-200 px-1 rounded;
 }
 
 :root {
