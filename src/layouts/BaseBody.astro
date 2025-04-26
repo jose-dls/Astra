@@ -3,9 +3,28 @@ import "../styles/global.css";
 const { class: className, ...props } = Astro.props;
 ---
 
+<script is:inline>
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+ 
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>
+
 <body
   class:list={[
-    "dark bg-lm-bg dark:bg-dm-bg text-lm-txt dark:text-dm-txt min-h-dvh flex flex-col items-center justify-between",
+    "bg-lm-bg dark:bg-dm-bg text-lm-txt dark:text-dm-txt min-h-dvh flex flex-col items-center justify-between",
     className
   ]}
   {...props}
