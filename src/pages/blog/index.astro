@@ -5,6 +5,7 @@ import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
+import BaseBody from "../../layouts/BaseBody.astro";
 
 const formatTag = (tag: string) => {
 	return tag
@@ -233,7 +234,7 @@ const selectedTags = new Set<string>();
 									.map(
 										(t) =>
 											`<button
-  class="inline-flex items-center rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+  class="inline-flex items-center rounded-md bg-lm-tag-unselected dark:bg-dm-tag-unselected font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
   onclick="filterPosts('${t.toLowerCase()}')"
 >
   <span class="mr-2">
@@ -255,11 +256,19 @@ const selectedTags = new Set<string>();
 							"dark:bg-dm-2",
 							"font-bold",
 						);
+						btn.classList.remove(
+							"bg-lm-tag-unselected",
+							"dark:bg-dm-tag-unselected",
+						);
 					} else {
 						btn.classList.remove(
 							"bg-lm-2",
 							"dark:bg-dm-2",
 							"font-bold",
+						);
+						btn.classList.add(
+							"bg-lm-tag-unselected",
+							"dark:bg-dm-tag-unselected",
 						);
 					}
 				});
@@ -299,9 +308,7 @@ const selectedTags = new Set<string>();
 		</style>
 	</head>
 
-	<body
-		class="bg-lm-bg dark:bg-dm-bg min-h-dvh flex flex-col items-center justify-between"
-	>
+	<BaseBody>
 		<Header />
 		<main class="grow flex-1 h-fit w-[90vw]">
 			<section class="h-fit flex flex-col">
@@ -351,7 +358,7 @@ const selectedTags = new Set<string>();
 							<div class="flex flex-row items-center gap-2">
 								<span class="text-sm">Filter Mode:</span>
 								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-sm font-bold"
+									class="filter-mode-toggle px-3 py-1 rounded-full  text-sm font-bold"
 									onclick="toggleFilterMode()"
 								>
 									AND
@@ -427,7 +434,7 @@ const selectedTags = new Set<string>();
 												post.data.tags.map((tag) => (
 													<li class="inlineblock">
 														<button
-															class="tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent inline-flex items-center rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+															class="tag-btn cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-tag-unselected dark:bg-dm-tag-unselected inline-flex items-center rounded-md here font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
 															data-tag={tag.toLowerCase()}
 															onclick={`filterPosts('${tag.toLowerCase()}')`}
 														>
@@ -497,7 +504,7 @@ const selectedTags = new Set<string>();
 							<div class="flex flex-row items-center gap-2">
 								<span class="text-sm">Filter Mode:</span>
 								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-sm font-bold"
+									class="filter-mode-toggle px-3 py-1 rounded-full  text-sm font-bold"
 									onclick="toggleFilterMode()"
 								>
 									AND
@@ -598,5 +605,5 @@ const selectedTags = new Set<string>();
 			</section>
 		</main>
 		<Footer />
-	</body>
+	</BaseBody>
 </html>

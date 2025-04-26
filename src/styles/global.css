@@ -15,29 +15,34 @@
 	/* Lightmode Header */
 	--color-lm-ft: oklch(0.84 0.0195 67.56);
 	/* Lightmode Footer */
-	--color-lm-txt: oklch(0.1 0 0);
+	/* --color-lm-txt: oklch(0.1 0 0); */
+	--color-lm-txt: oklch(0.32 0.0754 252.4);
 	/* Lightmode Text */
 	--color-lm-accent: oklch(0.32 0.0754 252.4);
 	/* Lightmode Accent */
 	--color-lm-selected: oklch(0.32 0.0754 252.4);
 	/* Lightmode Selected */
+	--color-lm-tag-unselected: oklch(92.8% 0.006 264.531);
+	/* Lightmode Tag Unselected */
 
-	--color-dm: ;
+	--color-dm: red;
 	/* Darkmode Default */
-	--color-dm-2: ;
+	--color-dm-2: yellow;
 	/* Darkmode Default 2 */
-	--color-dm-bg: ;
+	--color-dm-bg: black;
 	/* Darkmode Background */
-	--color-dm-hd: ;
+	--color-dm-hd: yellow;
 	/* Darkmode Header */
-	--color-dm-ft: ;
+	--color-dm-ft: yellow;
 	/* Darkmode Footer */
-	--color-dm-txt: ;
+	--color-dm-txt: white;
 	/* Darkmode Text */
-	--color-dm-accent: ;
+	--color-dm-accent: green;
 	/* Darkmode Accent */
 	--color-dm-selected: ;
 	/* Darkmode Selected */
+	--color-dm-tag-unselected: oklch(37.3% 0.034 259.733);
+	/* Lightmode Tag Unselected */
 }
 
 @font-face {

@@ -1,0 +1,15 @@
+---
+import "../styles/global.css";
+const { class: className, ...props } = Astro.props;
+---
+
+<body
+  class:list={[
+    "dark bg-lm-bg dark:bg-dm-bg text-lm-txt dark:text-dm-txt min-h-dvh flex flex-col items-center justify-between",
+    className
+  ]}
+  {...props}
+>
+  <!-- Content goes here -->
+  <slot />
+</body>
