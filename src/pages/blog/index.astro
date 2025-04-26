@@ -106,13 +106,13 @@ const selectedTags = new Set<string>();
 				for (let i = 1; i <= totalPages; i++) {
 					const pageBtn = document.createElement("button");
 					pageBtn.textContent = i.toString();
-					pageBtn.classList.add("pagination-btn");
+					pageBtn.classList.add("pagination-btn", "cursor-pointer");
 					pageBtn.onclick = () => {
 						currentPage = i;
 						paginatePosts();
 					};
 					if (i === currentPage) {
-						pageBtn.classList.add("text-lm-accent", "dark:text-dm-accent");
+						pageBtn.classList.add("text-lm-accent", "dark:text-dm-accent", "underline");
 					}
 					if (pageNumbersContainer) {
 						pageNumbersContainer.appendChild(pageBtn);
@@ -459,7 +459,7 @@ const selectedTags = new Set<string>();
 							class="pagination-controls flex justify-center gap-5 mt-10"
 						>
 							<button
-								class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md"
+								class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md cursor-pointer"
 								disabled
 							>
 								Previous
@@ -468,7 +468,7 @@ const selectedTags = new Set<string>();
 								<!-- Page number buttons will be injected here -->
 							</div>
 							<button
-								class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md"
+								class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md cursor-pointer"
 								disabled
 							>
 								Next
@@ -480,11 +480,11 @@ const selectedTags = new Set<string>();
 						class="p-10 mx-10 tags w-100 h-fit bg-lm-2 dark:bg-dm-2 hidden lg:block w-3/10"
 					>
 						<div
-							class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
-							onclick="toggleTags()"
+							class="pb-5 flex flex-row justify-between items-center flex-wrap"
 						>
 							<h2
-								class="text-2xl font-bold flex flex-row items-center gap-2"
+								class="text-2xl font-bold flex flex-row items-center gap-2 cursor-pointer"
+								onclick="toggleTags()"
 							>
 								<span class="toggleTagsButton">
 									<svg
@@ -507,7 +507,7 @@ const selectedTags = new Set<string>();
 							<div class="flex flex-row items-center gap-2">
 								<span class="text-sm">Filter Mode:</span>
 								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full  text-sm font-bold"
+									class="filter-mode-toggle px-3 py-1 rounded-full text-sm font-bold cursor-pointer"
 									onclick="toggleFilterMode()"
 								>
 									AND
