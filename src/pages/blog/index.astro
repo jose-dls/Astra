@@ -234,7 +234,7 @@ const selectedTags = new Set<string>();
 									.map(
 										(t) =>
 											`<button
-  class="inline-flex items-center rounded-md bg-lm-tag-unselected dark:bg-dm-bg dark:outline-1 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+  class="inline-flex items-center rounded-md bg-lm-bg dark:bg-dm-bg outline-1 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
   onclick="filterPosts('${t.toLowerCase()}')"
 >
   <span class="mr-2">
@@ -252,13 +252,14 @@ const selectedTags = new Set<string>();
 					const btnTag = (btn as HTMLElement).dataset.tag;
 					if (selectedTags.has(btnTag!)) {
 						btn.classList.add(
-							"bg-lm-2",
+							"bg-lm-txt",
+							"text-lm-bg",
 							"dark:bg-dm-txt",
 							"dark:text-dm-bg",
 							"font-bold",
 						);
 						btn.classList.remove(
-							"bg-lm-tag-unselected",
+							"bg-lm-bg",
 							"dark:bg-dm-bg",
 						);
 					} else {
@@ -269,7 +270,7 @@ const selectedTags = new Set<string>();
 							"font-bold",
 						);
 						btn.classList.add(
-							"bg-lm-tag-unselected",
+							"bg-lm-bg",
 							"dark:bg-dm-bg",
 						);
 					}
@@ -317,7 +318,7 @@ const selectedTags = new Set<string>();
 				<section
 					class="container-title bg-lm-2 dark:bg-dm-2 flex flex-col items-center h-fit m-10"
 				>
-					<div class="flex flex-col items-center py-10 w-full gap-5">
+					<div class="flex flex-col items-center w-full gap-5">
 						<h1 class="text-3xl font-bold">Blog Posts</h1>
 						<h2
 							class="active-tags w-7/10 min-h-10 flex flex-row flex-wrap gap-2 items-center justify-center"
@@ -326,11 +327,11 @@ const selectedTags = new Set<string>();
 					</div>
 				</section>
 				<div
-					class="posts-section flex flex-row m-10 justify-center flex-wrap lg:flex-nowrap"
+					class="mb-10 posts-section flex flex-row justify-center flex-wrap lg:flex-nowrap"
 				>
 					<!-- Tags Filter Mobile -->
 					<aside
-						class="p-10 mb-10 tags w-full h-fit bg-lm-2 dark:bg-dm-2 block lg:hidden"
+						class="mb-10 tags w-full h-fit bg-lm-2 dark:bg-dm-2 block lg:hidden"
 					>
 						<div
 							class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
@@ -436,7 +437,7 @@ const selectedTags = new Set<string>();
 												post.data.tags.map((tag) => (
 													<li class="inlineblock">
 														<button
-															class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-tag-unselected dark:bg-dm-bg dark:outline-1 inline-flex items-center rounded-md here font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+															class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md here font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
 															data-tag={tag.toLowerCase()}
 															onclick={`filterPosts('${tag.toLowerCase()}')`}
 														>

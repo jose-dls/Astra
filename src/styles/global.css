@@ -8,17 +8,21 @@
 @theme {
 	--color-lm: oklch(0.95 0.0046 78.3);
 	/* Lightmode Default */
-	--color-lm-2: oklch(0.84 0.0195 67.56);
+	--color-lm-2: oklch(0.95 0.0046 78.3);
+	/* --color-lm-2: oklch(0.84 0.0195 67.56); */
 	/* Lightmode Default 2 */
 	--color-lm-bg: oklch(0.95 0.0046 78.3);
 	/* Lightmode Background */
-	--color-lm-hd: oklch(0.84 0.0195 67.56);
+	--color-lm-hd: oklch(0.95 0.0046 78.3);
+	/* --color-lm-hd: oklch(0.84 0.0195 67.56); */
 	/* Lightmode Header */
-	--color-lm-ft: oklch(0.84 0.0195 67.56);
+	--color-lm-ft: oklch(0.95 0.0046 78.3);
+	/* --color-lm-ft: oklch(0.84 0.0195 67.56); */
 	/* Lightmode Footer */
 	--color-lm-txt: oklch(0.1 0 0);
 	/* Lightmode Text */
-	--color-lm-accent: oklch(0.84 0.0195 67.56);
+	/* --color-lm-accent: oklch(0.84 0.0195 67.56); */
+	--color-lm-accent: oklch(0.1 0 0);
 	/* Lightmode Accent */
 	--color-lm-selected: oklch(0.32 0.0754 252.4);
 	/* Lightmode Selected */
