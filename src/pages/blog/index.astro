@@ -234,14 +234,14 @@ const selectedTags = new Set<string>();
 									.map(
 										(t) =>
 											`<button
-  class="inline-flex items-center rounded-md bg-lm-bg dark:bg-dm-bg outline-1 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
-  onclick="filterPosts('${t.toLowerCase()}')"
->
-  <span class="mr-2">
-    <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-  </span>
-  ${formatTag(t)}
-</button>`,
+												class="inline-flex items-center rounded-md bg-lm-bg dark:bg-dm-bg outline-1 font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+												onclick="filterPosts('${t.toLowerCase()}')"
+											>
+												<span class="mr-2">
+													<svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+												</span>
+												${formatTag(t)}
+											</button>`,
 									)
 									.join(" ")}`
 							: "";
@@ -264,7 +264,8 @@ const selectedTags = new Set<string>();
 						);
 					} else {
 						btn.classList.remove(
-							"bg-lm-2",
+							"bg-lm-txt",
+							"text-lm-bg",
 							"dark:bg-dm-txt",
 							"dark:text-dm-bg",
 							"font-bold",
@@ -418,12 +419,7 @@ const selectedTags = new Set<string>();
 												/>
 											</div>
 											<h4 class="title">
-												asdfkjhasdkfj asdjfh
-												asjkdfhasjkdfh askjdh asdjkfhasl
-												kdfjaskljdf klasjdfkl
-												asdjflkasjdf klasjdf lkasdfjaskl
-												dfjaskldfj askldjfas kldfjfas
-												jkdf{post.data.title}
+												{post.data.title}
 											</h4>
 											<p class="date">
 												<FormattedDate
