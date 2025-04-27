@@ -1,6 +1,4 @@
 ---
-import { ModeToggle } from "./ModeToggle";
-import Socials from "./Socials.astro";
 import SocialsText from "./SocialsText.astro";
 
 const today = new Date();
@@ -17,6 +15,5 @@ const today = new Date();
 		<p>&copy; {today.getFullYear()} Your name here. All rights reserved.</p>
 	</div>
 	<div class="flex-grow flex flex-row justify-end">
-		<ModeToggle client:load />
 	</div>
 </footer>

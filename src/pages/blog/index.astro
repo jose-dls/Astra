@@ -112,7 +112,12 @@ const selectedTags = new Set<string>();
 						paginatePosts();
 					};
 					if (i === currentPage) {
-						pageBtn.classList.add("text-lm-accent", "dark:text-dm-accent", "underline", "underline-offset-3");
+						pageBtn.classList.add(
+							"text-lm-accent",
+							"dark:text-dm-accent",
+							"underline",
+							"underline-offset-3",
+						);
 					}
 					if (pageNumbersContainer) {
 						pageNumbersContainer.appendChild(pageBtn);
@@ -258,10 +263,7 @@ const selectedTags = new Set<string>();
 							"dark:text-dm-bg",
 							"font-bold",
 						);
-						btn.classList.remove(
-							"bg-lm-bg",
-							"dark:bg-dm-bg",
-						);
+						btn.classList.remove("bg-lm-bg", "dark:bg-dm-bg");
 					} else {
 						btn.classList.remove(
 							"bg-lm-txt",
@@ -270,10 +272,7 @@ const selectedTags = new Set<string>();
 							"dark:text-dm-bg",
 							"font-bold",
 						);
-						btn.classList.add(
-							"bg-lm-bg",
-							"dark:bg-dm-bg",
-						);
+						btn.classList.add("bg-lm-bg", "dark:bg-dm-bg");
 					}
 				});
 
@@ -409,15 +408,13 @@ const selectedTags = new Set<string>();
 											href={`/blog/${post.id}/`}
 											class="flex flex-col justify-center gap-2"
 										>
-											<div class="w-full outline-solid outline-1 flex flex-col items-center justify-center rounded-lg p-3">
-												<img
-													width={720}
-													height={360}
-													src={post.data.heroImage}
-													alt=""
-													class="rounded-lg"
-												/>
-											</div>
+											<img
+												width={720}
+												height={360}
+												src={post.data.heroImage}
+												alt=""
+												class="w-full outline-solid outline-1 flex flex-col items-center justify-center rounded-lg p-3"
+											/>
 											<h4 class="title">
 												{post.data.title}
 											</h4>

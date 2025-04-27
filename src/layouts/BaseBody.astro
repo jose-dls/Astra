@@ -1,4 +1,5 @@
 ---
+import { ModeToggle } from "@/components/ModeToggle";
 import "../styles/global.css";
 const { class: className, ...props } = Astro.props;
 ---
@@ -24,11 +25,14 @@ const { class: className, ...props } = Astro.props;
 
 <body
   class:list={[
-    "bg-lm-bg dark:bg-dm-bg text-lm-txt dark:text-dm-txt min-h-dvh flex flex-col items-center justify-between",
+    "bg-lm-bg dark:bg-dm-bg text-lm-txt dark:text-dm-txt min-h-screen flex flex-col items-center justify-between",
     className
   ]}
   {...props}
 >
   <!-- Content goes here -->
   <slot />
+  <div class="fixed bottom-4 right-4">
+	<ModeToggle client:load />
+  </div>
 </body>
