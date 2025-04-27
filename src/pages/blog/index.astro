@@ -112,7 +112,7 @@ const selectedTags = new Set<string>();
 						paginatePosts();
 					};
 					if (i === currentPage) {
-						pageBtn.classList.add("text-lm-accent", "dark:text-dm-accent", "underline");
+						pageBtn.classList.add("text-lm-accent", "dark:text-dm-accent", "underline", "underline-offset-3");
 					}
 					if (pageNumbersContainer) {
 						pageNumbersContainer.appendChild(pageBtn);
@@ -362,7 +362,7 @@ const selectedTags = new Set<string>();
 							<div class="flex flex-row items-center gap-2">
 								<span class="text-sm">Filter Mode:</span>
 								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full  text-sm font-bold"
+									class="filter-mode-toggle px-3 py-1 rounded-full outline-1 text-sm font-bold"
 									onclick="toggleFilterMode()"
 								>
 									AND
@@ -455,7 +455,7 @@ const selectedTags = new Set<string>();
 							class="pagination-controls flex justify-center gap-5 mt-10"
 						>
 							<button
-								class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md cursor-pointer"
+								class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md cursor-pointer outline-1"
 								disabled
 							>
 								Previous
@@ -464,7 +464,7 @@ const selectedTags = new Set<string>();
 								<!-- Page number buttons will be injected here -->
 							</div>
 							<button
-								class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md cursor-pointer"
+								class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md cursor-pointer outline-1"
 								disabled
 							>
 								Next
@@ -503,7 +503,7 @@ const selectedTags = new Set<string>();
 							<div class="flex flex-row items-center gap-2">
 								<span class="text-sm">Filter Mode:</span>
 								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full text-sm font-bold cursor-pointer"
+									class="filter-mode-toggle px-3 py-1 rounded-full outline-1 text-sm font-bold cursor-pointer"
 									onclick="toggleFilterMode()"
 								>
 									AND
