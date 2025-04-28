@@ -4,6 +4,8 @@ import FormattedDate from "@/components/FormattedDate.astro";
 import Carousel from "./Carousel.astro";
 import CarouselSlide from "./CarouselSlide.astro";
 
+const { limit = 5 } = Astro.props;
+
 const formatTag = (tag: string) => {
     return tag
         .toLowerCase()
@@ -12,9 +14,13 @@ const formatTag = (tag: string) => {
         .join(" ");
 };
 
-const posts = (await getCollection("blog")).sort(
+let posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// Limit the posts to the latest `limit` posts
+posts = posts.slice(0, limit);
+
 const tagCounts: Record<string, number> = {};
 const uniqueTags = new Set<string>();
 posts.forEach((post) => {
@@ -35,14 +41,14 @@ posts.forEach((post) => {
             >
                 <a
                     href={`/blog/${post.id}/`}
-                    class="flex flex-row justify-center gap-10 mx-20"
+                    class="flex flex-row justify-center items-center gap-10 mx-20"
                 >
                     <img
                         width={720}
                         height={360}
                         src={post.data.heroImage}
                         alt=""
-                        class="flex flex-col items-center justify-center rounded-lg"
+                        class="w-50/100 flex-col items-center justify-center rounded-lg hidden lg:flex"
                     />
                     <div class="flex-grow flex flex-col justify-center items-center gap-4">
                         <h4 class="title text-4xl">{post.data.title}</h4>
@@ -50,7 +56,7 @@ posts.forEach((post) => {
                             <FormattedDate date={post.data.pubDate} />
                         </p>
                         <ul class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center">
-                            {post.data.tags && post.data.tags.length > 0 ? (
+                            {post.data.tags && post.data.tags.length > 0 && (
                                 post.data.tags.map((tag) => (
                                     <li>
                                         <button
@@ -61,10 +67,6 @@ posts.forEach((post) => {
                                         </button>
                                     </li>
                                 ))
-                            ) : (
-                                <li>
-                                    <br />
-                                </li>
                             )}
                         </ul>
                     </div>
@@ -72,4 +74,7 @@ posts.forEach((post) => {
             </CarouselSlide>
         ))
     }
+    <CarouselSlide>
+        <a href="/blog" class="text-4xl hover:underline underline-offset-12">View All</a>
+    </CarouselSlide>
 </Carousel>
