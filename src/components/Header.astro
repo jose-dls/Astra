@@ -5,14 +5,19 @@ import Socials from "./Socials.astro";
 import SocialsDrop from "./SocialsDrop.astro";
 
 const { class: className, ...props } = Astro.props;
-
 ---
 
 <header
-	class=`bg-lm-hd dark:bg-dm-hd w-full m-0 p-5 shadow-[0_10px_8px_rgba(0,0,0,0.05)] dark:shadow-[0_5px_8px_rgba(255,255,255,0.05)] ${className}`
+	class:list={[
+		"bg-lm-hd dark:bg-dm-hd w-full m-0 p-5 shadow-[0_5px_8px_rgba(0,0,0,0.05)] dark:shadow-[0_5px_8px_rgba(255,255,255,0.05)]",
+		className,
+	]}
+	{...props}
 >
 	<nav class="flex flex-row justify-between items-center">
-		<h2 class="w-1/6 m-0 text-3xl font-bold"><a href="/">{SITE_TITLE}</a></h2>
+		<h2 class="w-1/6 m-0 text-3xl font-bold">
+			<a href="/">{SITE_TITLE}</a>
+		</h2>
 		<div class="internal-links text-xl flex flex-row gap-5">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
@@ -24,10 +29,12 @@ const { class: className, ...props } = Astro.props;
 </header>
 
 <header
-	class=`fixed top-0 left-0 bg-lm-hd dark:bg-dm-hd w-screen mr-0 p-5 px-10 outline-1 ${className}`
+	class=`fixed top-0 z-100 left-0 bg-lm-hd dark:bg-dm-hd w-screen mr-0 p-5 px-10 outline-1 ${className}`
 >
 	<nav class="flex flex-row justify-between items-center">
-		<h2 class="w-1/6 m-0 text-3xl font-bold"><a href="/">{SITE_TITLE}</a></h2>
+		<h2 class="w-1/6 m-0 text-3xl font-bold">
+			<a href="/">{SITE_TITLE}</a>
+		</h2>
 		<div class="internal-links text-xl flex flex-row gap-5">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>

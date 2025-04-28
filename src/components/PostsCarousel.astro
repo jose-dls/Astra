@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import Carousel from "./Carousel.astro";
+import CarouselSlide from "./CarouselSlide.astro";
+
+const formatTag = (tag: string) => {
+    return tag
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0)?.toUpperCase() + word.slice(1))
+        .join(" ");
+};
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const tagCounts: Record<string, number> = {};
+const uniqueTags = new Set<string>();
+posts.forEach((post) => {
+    (post.data.tags || []).forEach((tag) => {
+        const normalizedTag = tag?.toLowerCase();
+        tagCounts[normalizedTag] = (tagCounts[normalizedTag] || 0) + 1;
+        uniqueTags.add(normalizedTag);
+    });
+});
+---
+
+<Carousel>
+    {
+        posts.map((post) => (
+            <CarouselSlide
+                class="post-item"
+                data-tags={post?.data?.tags?.join(",/,").toLowerCase() || ""}
+            >
+                <a
+                    href={`/blog/${post.id}/`}
+                    class="flex flex-row justify-center gap-10 mx-20"
+                >
+                    <img
+                        width={720}
+                        height={360}
+                        src={post.data.heroImage}
+                        alt=""
+                        class="flex flex-col items-center justify-center rounded-lg"
+                    />
+                    <div class="flex-grow flex flex-col justify-center items-center gap-4">
+                        <h4 class="title text-4xl">{post.data.title}</h4>
+                        <p class="date">
+                            <FormattedDate date={post.data.pubDate} />
+                        </p>
+                        <ul class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center">
+                            {post.data.tags && post.data.tags.length > 0 ? (
+                                post.data.tags.map((tag) => (
+                                    <li>
+                                        <button
+                                            class="cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md font-medium text-sm px-3 py-1"
+                                            data-tag={tag.toLowerCase()}
+                                        >
+                                            {formatTag(tag)}
+                                        </button>
+                                    </li>
+                                ))
+                            ) : (
+                                <li>
+                                    <br />
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </a>
+            </CarouselSlide>
+        ))
+    }
+</Carousel>

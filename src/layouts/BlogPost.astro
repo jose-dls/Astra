@@ -1,14 +1,35 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import BaseBody from './BaseBody.astro';
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseBody from "./BaseBody.astro";
+import Divider from "@/components/anim/Divider.astro";
+import FadeIn from "@/components/anim/FadeIn.astro";
+import FadeMove from "@/components/anim/FadeMove.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags } =
+	Astro.props;
+
+const formatTag = (tag: string) => {
+	return tag
+		.toLowerCase()
+		.split(" ")
+		.map((word) => word.charAt(0)?.toUpperCase() + word.slice(1))
+		.join(" ");
+};
+
+const tagCounts: Record<string, number> = {};
+let uniqueTags = new Set<string>();
+(tags || []).forEach((tag) => {
+	const normalizedTag = tag?.toLowerCase();
+	tagCounts[normalizedTag] = (tagCounts[normalizedTag] || 0) + 1;
+	uniqueTags.add(normalizedTag);
+});
+const usedTags = Array.from(uniqueTags);
 ---
 
 <html lang="en">
@@ -18,27 +39,77 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 
 	<BaseBody class="gap-10">
 		<Header />
-		<main class="max-w-[70vw]">
+		<main class="max-w-[70vw] min-w-[70vw]">
 			<article>
-				<div class="hero-image flex flex-col items-center justify-between gap-5 mb-10">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-					<div class="title w-full flex flex-row items-center justify-between flex-wrap">
-						<h1 class="font-bold text-2xl">{title}</h1>
-						<div class="date text-2xl text-right">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
+				<FadeIn>
+					<div
+						class="hero-image flex flex-col items-center justify-between gap-5 mb-10"
+					>
+						{
+							heroImage && (
+								<img
+									width={1020}
+									height={510}
+									src={heroImage}
+									alt=""
+								/>
+							)
+						}
+						<div
+							class="title w-full flex flex-row items-center justify-between flex-wrap"
+						>
+							<FadeMove direction="down">
+								<h1 class="font-bold text-2xl">{title}</h1>
+							</FadeMove>
+							<FadeMove direction="down">
+								<div class="date text-2xl text-right">
+									<FormattedDate date={pubDate} />
+									{
+										updatedDate && (
+											<div class="last-updated-on">
+												Last updated on{" "}
+												<FormattedDate
+													date={updatedDate}
+												/>
+											</div>
+										)
+									}
+								</div>
+							</FadeMove>
 						</div>
 					</div>
-				</div>
-				<div class="markdown-blog">
-					<slot />
-				</div>
+				</FadeIn>
+
+				<Divider class="mb-10" />
+				<FadeIn>
+					<ul
+						class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center mb-10"
+					>
+						{
+							usedTags && usedTags.length > 0 ? (
+								usedTags.map((tag) => (
+									<li>
+										<button
+											class="hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md font-medium text-sm px-3 py-1"
+											data-tag={tag.toLowerCase()}
+										>
+											{formatTag(tag)}
+										</button>
+									</li>
+								))
+							) : (
+								<li>
+									<br />
+								</li>
+							)
+						}
+					</ul>
+				</FadeIn>
+				<FadeIn>
+					<div class="markdown-blog">
+						<slot />
+					</div>
+				</FadeIn>
 			</article>
 		</main>
 		<Footer />

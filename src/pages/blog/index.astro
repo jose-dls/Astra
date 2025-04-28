@@ -6,6 +6,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import BaseBody from "../../layouts/BaseBody.astro";
+import FadeMove from "@/components/anim/FadeMove.astro";
+import FadeIn from "@/components/anim/FadeIn.astro";
 
 const formatTag = (tag: string) => {
 	return tag
@@ -28,7 +30,6 @@ posts.forEach((post) => {
 	});
 });
 const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
-const selectedTags = new Set<string>();
 ---
 
 <!doctype html>
@@ -319,14 +320,17 @@ const selectedTags = new Set<string>();
 					class="container-title bg-lm-2 dark:bg-dm-2 flex flex-col items-center h-fit m-10"
 				>
 					<div class="flex flex-col items-center w-full gap-5">
-						<h1 class="text-3xl font-bold">Blog Posts</h1>
+						<FadeMove direction="down">
+							<h1 class="text-3xl font-bold">Blog Posts</h1>
+						</FadeMove>
 						<h2
 							class="active-tags w-7/10 min-h-10 flex flex-row flex-wrap gap-2 items-center justify-center"
 						>
 						</h2>
 					</div>
 				</section>
-				<div
+				<FadeIn>
+					<div
 					class="mb-10 posts-section flex flex-row justify-center flex-wrap lg:flex-nowrap"
 				>
 					<!-- Tags Filter Mobile -->
@@ -428,9 +432,9 @@ const selectedTags = new Set<string>();
 											{post.data.tags &&
 											post.data.tags.length > 0 ? (
 												post.data.tags.map((tag) => (
-													<li class="inlineblock">
+													<li>
 														<button
-															class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md here font-medium text-sm px-3 py-1 cursor-pointer hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+															class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md font-medium text-sm px-3 py-1 hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
 															data-tag={tag.toLowerCase()}
 															onclick={`filterPosts('${tag.toLowerCase()}')`}
 														>
@@ -598,6 +602,7 @@ const selectedTags = new Set<string>();
 						};
 					</script>
 				</div>
+				</FadeIn>
 			</section>
 		</main>
 		<Footer />

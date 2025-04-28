@@ -1,0 +1,34 @@
+---
+// Props (optional): duration, delay, direction
+const { duration = '1s', delay = '0s', direction = "up" } = Astro.props;
+
+// Determine the transform offset based on direction
+let transformFrom = 'translateY(20px)';
+if (direction === 'down') transformFrom = 'translateY(-20px)';
+if (direction === 'left') transformFrom = 'translateX(20px)';
+if (direction === 'right') transformFrom = 'translateX(-20px)';
+---
+
+<style>
+  .move-in {
+    animation: moveInAnimation var(--move-duration, 1s) ease-in-out var(--move-delay, 0s) forwards;
+  }
+
+  @keyframes moveInAnimation {
+    from {
+      transform: var(--move-from);
+      opacity: 0;
+    }
+    to {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+</style>
+
+<div
+  class="move-in"
+  style={`--move-duration: ${duration}; --move-delay: ${delay}; --move-from: ${transformFrom};`}
+>
+  <slot />
+</div>
