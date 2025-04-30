@@ -20,9 +20,21 @@ import PostsCarousel from "@/components/PostsCarousel.astro";
 	</head>
 	<BaseBody class="gap-10">
 		<Header />
-		<main class="max-w-[70vw] py-10">
-			<Divider class="mb-10" />
-			<FadeIn>
+		<div id="hero-section" class="p-10">
+			<FadeMove direction="down" class="h-screen flex items-center justify-center">
+				<h1 class="text-7xl text-center font-[1000]">
+					ASTRA
+				</h1>
+				<p>
+					An Astro blog template with a focus on simplicity and ease of
+					use. Built with Tailwind CSS and ready to be customized to your
+					liking.
+				</p>
+			</FadeMove>
+		</div>
+		<main class="max-w-[70vw] py-10 flex flex-col gap-10">
+			<Divider />
+			<FadeMove direction="right">
 				<h1>🧑‍🚀 Hello, Astronaut!</h1>
 				<p>
 					Welcome to the official <a href="https://astro.build/"
@@ -84,9 +96,12 @@ import PostsCarousel from "@/components/PostsCarousel.astro";
 					>
 					by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
 				</p>
+			</FadeMove>
+			<Divider />
+			<FadeMove>
 				<PostsCarousel />
-			</FadeIn>
-			<Divider class="mt-10" />
+			</FadeMove>
+			<Divider />
 		</main>
 		<Footer />
 	</BaseBody>

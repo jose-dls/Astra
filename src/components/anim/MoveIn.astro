@@ -1,12 +1,12 @@
 ---
 // Props (optional): duration, delay, direction
-const { duration = '1s', delay = '0s', direction = "up" } = Astro.props;
+const { duration = '1s', delay = '0s', direction = "up", class: ClassName } = Astro.props;
 
 // Determine the transform offset based on direction
 let transformFrom = 'translateY(20px)';
-if (direction === 'down') transformFrom = 'translateY(-20px)';
-if (direction === 'left') transformFrom = 'translateX(20px)';
-if (direction === 'right') transformFrom = 'translateX(-20px)';
+if (direction.toLowerCase() === 'down') transformFrom = 'translateY(-20px)';
+if (direction.toLowerCase() === 'left') transformFrom = 'translateX(20px)';
+if (direction.toLowerCase() === 'right') transformFrom = 'translateX(-20px)';
 ---
 
 <style>
@@ -27,7 +27,7 @@ if (direction === 'right') transformFrom = 'translateX(-20px)';
 </style>
 
 <div
-  class="move-in"
+  class:list={["move-in", ClassName]}
   style={`--move-duration: ${duration}; --move-delay: ${delay}; --move-from: ${transformFrom};`}
 >
   <slot />

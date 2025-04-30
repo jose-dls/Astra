@@ -45,6 +45,7 @@ const usedTags = Array.from(uniqueTags);
 					<div
 						class="hero-image flex flex-col items-center justify-between gap-5 mb-10"
 					>
+					<FadeMove direction="up">
 						{
 							heroImage && (
 								<img
@@ -55,6 +56,7 @@ const usedTags = Array.from(uniqueTags);
 								/>
 							)
 						}
+					</FadeMove>
 						<div
 							class="title w-full flex flex-row items-center justify-between flex-wrap"
 						>
@@ -105,11 +107,11 @@ const usedTags = Array.from(uniqueTags);
 						}
 					</ul>
 				</FadeIn>
-				<FadeIn>
+				<FadeMove direction="right">
 					<div class="markdown-blog">
 						<slot />
 					</div>
-				</FadeIn>
+				</FadeMove>
 			</article>
 		</main>
 		<Footer />

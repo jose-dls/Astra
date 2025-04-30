@@ -1,6 +1,6 @@
 ---
 // Props (optional): duration, delay
-const { duration = '1s', delay = '0s' } = Astro.props;
+const { duration = '1s', delay = '0s', class: ClassName } = Astro.props;
 ---
 
 <style>
@@ -20,7 +20,7 @@ const { duration = '1s', delay = '0s' } = Astro.props;
 </style>
 
 <div
-  class="fade-in"
+  class:list={["fade-in", ClassName]}
   style={`--fade-duration: ${duration}; --fade-delay: ${delay};`}
 >
   <slot />

@@ -331,232 +331,264 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 				</section>
 				<FadeIn>
 					<div
-					class="mb-10 posts-section flex flex-row justify-center flex-wrap lg:flex-nowrap"
-				>
-					<!-- Tags Filter Mobile -->
-					<aside
-						class="mb-10 tags w-full h-fit bg-lm-2 dark:bg-dm-2 block lg:hidden"
+						class="mb-10 posts-section flex flex-row justify-center flex-wrap lg:flex-nowrap"
 					>
-						<div
-							class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
-							onclick="toggleTags()"
+						<!-- Tags Filter Mobile -->
+						 <FadeMove direction="down" class="w-full h-fit block lg:hidden">
+							<aside
+							class="mb-10 tags w-full h-fit bg-lm-2 dark:bg-dm-2 block lg:hidden"
 						>
-							<h2
-								class="text-2xl font-bold flex flex-row items-center gap-2"
-							>
-								<span class="toggleTagsButton">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="size-6"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="m19.5 8.25-7.5 7.5-7.5-7.5"
-										></path>
-									</svg>
-								</span>
-								<p>Tags</p>
-							</h2>
-							<div class="flex flex-row items-center gap-2">
-								<span class="text-sm">Filter Mode:</span>
-								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full outline-1 text-sm font-bold"
-									onclick="toggleFilterMode()"
-								>
-									AND
-								</button>
-							</div>
-						</div>
-
-						<ul class="tagList flex flex-col gap-2 mt-3 hidden">
-							{
-								sortedTags.map(([tag, count]) => (
-									<li class="inline-block">
-										<label class="flex flex-row items-center gap-2 cursor-pointer">
-											<input
-												type="checkbox"
-												class="m-w-4 m-h-4"
-												onchange={`filterPosts('${tag.toLowerCase()}')`}
-											/>
-											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
-												{formatTag(tag)} ({count})
-											</span>
-										</label>
-									</li>
-								))
-							}
-						</ul>
-					</aside>
-					<!-- Posts -->
-					<article class="container-posts h-full lg:w-7/10">
-						<ul
-							class="grid gap-5 grid-cols-1 lg:grid-cols-2"
-							id="postList"
-						>
-							{
-								posts.map((post) => (
-									<li
-										class="post-item"
-										data-tags={
-											post?.data?.tags
-												?.join(",/,")
-												.toLowerCase() || ""
-										}
-									>
-										<a
-											href={`/blog/${post.id}/`}
-											class="flex flex-col justify-center gap-2"
-										>
-											<img
-												width={720}
-												height={360}
-												src={post.data.heroImage}
-												alt=""
-												class="w-full outline-solid outline-1 flex flex-col items-center justify-center rounded-lg p-3"
-											/>
-											<h4 class="title">
-												{post.data.title}
-											</h4>
-											<p class="date">
-												<FormattedDate
-													date={post.data.pubDate}
-												/>
-											</p>
-										</a>
-										<ul class="tags flex flex-row flex-wrap gap-2 mt-2">
-											{post.data.tags &&
-											post.data.tags.length > 0 ? (
-												post.data.tags.map((tag) => (
-													<li>
-														<button
-															class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md font-medium text-sm px-3 py-1 hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
-															data-tag={tag.toLowerCase()}
-															onclick={`filterPosts('${tag.toLowerCase()}')`}
-														>
-															{formatTag(tag)}
-														</button>
-													</li>
-												))
-											) : (
-												<li>
-													<br />
-												</li>
-											)}
-										</ul>
-									</li>
-								))
-							}
-						</ul>
-						<div
-							class="pagination-controls flex justify-center gap-5 mt-10"
-						>
-							<button
-								class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md cursor-pointer outline-1"
-								disabled
-							>
-								Previous
-							</button>
-							<div class="pagination-numbers flex gap-2">
-								<!-- Page number buttons will be injected here -->
-							</div>
-							<button
-								class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md cursor-pointer outline-1"
-								disabled
-							>
-								Next
-							</button>
-						</div>
-					</article>
-					<!-- Tags Filter Desktop -->
-					<aside
-						class="p-10 mx-10 tags w-100 h-fit bg-lm-2 dark:bg-dm-2 hidden lg:block w-3/10"
-					>
-						<div
-							class="pb-5 flex flex-row justify-between items-center flex-wrap"
-						>
-							<h2
-								class="text-2xl font-bold flex flex-row items-center gap-2 cursor-pointer"
+							<div
+								class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
 								onclick="toggleTags()"
 							>
-								<span class="toggleTagsButton">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="size-6"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="m19.5 8.25-7.5 7.5-7.5-7.5"
-										></path>
-									</svg>
-								</span>
-								<p>Tags</p>
-							</h2>
-							<div class="flex flex-row items-center gap-2">
-								<span class="text-sm">Filter Mode:</span>
-								<button
-									class="filter-mode-toggle px-3 py-1 rounded-full outline-1 text-sm font-bold cursor-pointer"
-									onclick="toggleFilterMode()"
+								<h2
+									class="text-2xl font-bold flex flex-row items-center gap-2"
 								>
-									AND
-								</button>
+									<span class="toggleTagsButton">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke-width="1.5"
+											stroke="currentColor"
+											class="size-6"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="m19.5 8.25-7.5 7.5-7.5-7.5"
+											></path>
+										</svg>
+									</span>
+									<p>Tags</p>
+								</h2>
+								<div class="flex flex-row items-center gap-2">
+									<span class="text-sm">Filter Mode:</span>
+									<button
+										class="filter-mode-toggle px-3 py-1 rounded-full outline-1 text-sm font-bold"
+										onclick="toggleFilterMode()"
+									>
+										AND
+									</button>
+								</div>
 							</div>
-						</div>
 
-						<ul class="tagList flex flex-col gap-2 mt-3 hidden">
-							{
-								sortedTags.map(([tag, count]) => (
-									<li class="inline-block">
-										<label class="flex flex-row items-center gap-2 cursor-pointer">
-											<input
-												type="checkbox"
-												class="m-w-4 m-h-4 accent-lm-2 dark:accent-dm-2 border-2 border-lm-txt dark:border-dm-txt"
-												onchange={`filterPosts('${tag.toLowerCase()}')`}
-											/>
-											<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
-												{formatTag(tag)} ({count})
-											</span>
-										</label>
-									</li>
-								))
-							}
-						</ul>
-					</aside>
-					<script>
-						declare global {
-							interface Window {
-								toggleTags: () => void;
-							}
-						}
-						window.toggleTags = function () {
-							const tagList =
-								document.getElementsByClassName("tagList");
-							const toggleButton =
-								document.getElementsByClassName(
-									"toggleTagsButton",
-								);
+							<ul class="tagList flex flex-col gap-2 mt-3 hidden">
+								{
+									sortedTags.map(([tag, count]) => (
+										<li class="inline-block">
+											<label class="flex flex-row items-center gap-2 cursor-pointer">
+												<input
+													type="checkbox"
+													class="m-w-4 m-h-4"
+													onchange={`filterPosts('${tag.toLowerCase()}')`}
+												/>
+												<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
+													{formatTag(tag)} ({count})
+												</span>
+											</label>
+										</li>
+									))
+								}
+							</ul>
+						</aside>
+						 </FadeMove>
+						<!-- Posts -->
+						<FadeMove direction="right" class="h-full lg:w-7/10">
+							<article class="container-posts">
+								<ul
+									class="grid gap-5 grid-cols-1 lg:grid-cols-2"
+									id="postList"
+								>
+									{
+										posts.map((post) => (
+											<li
+												class="post-item"
+												data-tags={
+													post?.data?.tags
+														?.join(",/,")
+														.toLowerCase() || ""
+												}
+											>
+												<a
+													href={`/blog/${post.id}/`}
+													class="flex flex-col justify-center gap-2"
+												>
+													<img
+														width={720}
+														height={360}
+														src={
+															post.data.heroImage
+														}
+														alt=""
+														class="w-full outline-solid outline-1 flex flex-col items-center justify-center rounded-lg p-3"
+													/>
+													<h4 class="title">
+														{post.data.title}
+													</h4>
+													<p class="date">
+														<FormattedDate
+															date={
+																post.data
+																	.pubDate
+															}
+														/>
+													</p>
+												</a>
+												<ul class="tags flex flex-row flex-wrap gap-2 mt-2">
+													{post.data.tags &&
+													post.data.tags.length >
+														0 ? (
+														post.data.tags.map(
+															(tag) => (
+																<li>
+																	<button
+																		class="tag-btn-post cursor-pointer hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md font-medium text-sm px-3 py-1 hover:opacity-50 focus:outline-none transition duration-150 ease-in-out"
+																		data-tag={tag.toLowerCase()}
+																		onclick={`filterPosts('${tag.toLowerCase()}')`}
+																	>
+																		{formatTag(
+																			tag,
+																		)}
+																	</button>
+																</li>
+															),
+														)
+													) : (
+														<li>
+															<br />
+														</li>
+													)}
+												</ul>
+											</li>
+										))
+									}
+								</ul>
+								<div
+									class="pagination-controls flex justify-center gap-5 mt-10"
+								>
+									<button
+										class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md cursor-pointer outline-1"
+										disabled
+									>
+										Previous
+									</button>
+									<div class="pagination-numbers flex gap-2">
+										<!-- Page number buttons will be injected here -->
+									</div>
+									<button
+										class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md cursor-pointer outline-1"
+										disabled
+									>
+										Next
+									</button>
+								</div>
+							</article>
+						</FadeMove>
+						<!-- Tags Filter Desktop -->
+						<FadeMove direction="left" class="w-3/10 h-fit hidden lg:block">
+							<aside
+								class="p-10 mx-10 tags h-fit bg-lm-2 dark:bg-dm-2 hidden lg:block"
+							>
+								<div
+									class="pb-5 flex flex-row justify-between items-center flex-wrap gap-5"
+								>
+									<h2
+										class="text-2xl font-bold flex flex-row items-center gap-2 cursor-pointer"
+										onclick="toggleTags()"
+									>
+										<span class="toggleTagsButton">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke-width="1.5"
+												stroke="currentColor"
+												class="size-6"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													d="m19.5 8.25-7.5 7.5-7.5-7.5"
+												></path>
+											</svg>
+										</span>
+										<p>Tags</p>
+									</h2>
+									<div
+										class="flex flex-row items-center gap-2"
+									>
+										<span class="text-sm">Filter Mode:</span
+										>
+										<button
+											class="filter-mode-toggle px-3 py-1 rounded-full outline-1 text-sm font-bold cursor-pointer"
+											onclick="toggleFilterMode()"
+										>
+											AND
+										</button>
+									</div>
+								</div>
 
-							if (tagList) {
-								// Toggle the visibility of the tag list
-								Array.from(tagList).forEach((element) => {
-									element.classList.toggle("hidden");
-								});
+								<ul
+									class="tagList flex flex-col gap-2 mt-3 hidden"
+								>
+									{
+										sortedTags.map(([tag, count]) => (
+											<li class="inline-block">
+												<label class="flex flex-row items-center gap-2 cursor-pointer">
+													<input
+														type="checkbox"
+														class="m-w-4 m-h-4 accent-lm-2 dark:accent-dm-2 border-2 border-lm-txt dark:border-dm-txt"
+														onchange={`filterPosts('${tag.toLowerCase()}')`}
+													/>
+													<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">
+														{formatTag(tag)} (
+														{count})
+													</span>
+												</label>
+											</li>
+										))
+									}
+								</ul>
+							</aside>
+							<script>
+								declare global {
+									interface Window {
+										toggleTags: () => void;
+									}
+								}
+								window.toggleTags = function () {
+									const tagList =
+										document.getElementsByClassName(
+											"tagList",
+										);
+									const toggleButton =
+										document.getElementsByClassName(
+											"toggleTagsButton",
+										);
 
-								// Change the button text based on visibility
-								if (tagList[0].classList.contains("hidden")) {
-									if (toggleButton) {
-										Array.from(toggleButton).forEach(
-											(button) => {
-												button.innerHTML = `
+									if (tagList) {
+										// Toggle the visibility of the tag list
+										Array.from(tagList).forEach(
+											(element) => {
+												element.classList.toggle(
+													"hidden",
+												);
+											},
+										);
+
+										// Change the button text based on visibility
+										if (
+											tagList[0].classList.contains(
+												"hidden",
+											)
+										) {
+											if (toggleButton) {
+												Array.from(
+													toggleButton,
+												).forEach((button) => {
+													button.innerHTML = `
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
 													fill="none"
@@ -572,14 +604,14 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 													/>
 												</svg>
 												`;
-											},
-										);
-									}
-								} else {
-									if (toggleButton) {
-										Array.from(toggleButton).forEach(
-											(button) => {
-												button.innerHTML = `<svg
+												});
+											}
+										} else {
+											if (toggleButton) {
+												Array.from(
+													toggleButton,
+												).forEach((button) => {
+													button.innerHTML = `<svg
 														xmlns="http://www.w3.org/2000/svg"
 														fill="none"
 														viewBox="0 0 24 24"
@@ -594,14 +626,14 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 														/>
 													</svg>
 													`;
-											},
-										);
+												});
+											}
+										}
 									}
-								}
-							}
-						};
-					</script>
-				</div>
+								};
+							</script>
+						</FadeMove>
+					</div>
 				</FadeIn>
 			</section>
 		</main>

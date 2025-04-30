@@ -2,7 +2,6 @@
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import Socials from "./Socials.astro";
-import SocialsDrop from "./SocialsDrop.astro";
 
 const { class: className, ...props } = Astro.props;
 ---
@@ -18,13 +17,94 @@ const { class: className, ...props } = Astro.props;
 		<h2 class="w-1/6 m-0 text-3xl font-bold">
 			<a href="/">{SITE_TITLE}</a>
 		</h2>
-		<div class="internal-links text-xl flex flex-row gap-5">
+		<div class="internal-links text-xl flex flex-row gap-5 hidden md:flex">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 		<Socials class="w-1/6 justify-end hidden md:flex" />
-		<SocialsDrop class="w-1/6 md:hidden" />
+		<div class="relative w-1/6 md:hidden">
+			<button
+				type="button"
+				class="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
+				aria-haspopup="true"
+				aria-expanded="false"
+				id="socials-toggle"
+			>
+				<span>&#9776;</span>
+			</button>
+			<div
+				class="absolute right-0 mt-2 w-50 bg-lm-2 dark:bg-dm-2 border border-lm dark:border-dm rounded shadow-[0_5px_15px_-3px_rgba(0,0,0,0.1)] dark:shadow-[0_5px_10px_-3px_rgba(255,255,255,0.1)] z-50 hidden"
+				role="menu"
+				aria-labelledby="socials-toggle"
+			>
+				<div class="flex flex-col gap-2 p-4">
+					<HeaderLink href="/">Home</HeaderLink>
+					<HeaderLink href="/blog">Blog</HeaderLink>
+					<HeaderLink href="/about">About</HeaderLink>
+					<HeaderLink href="https://www.josedls.dev" target="_blank">
+						<div class="flex flex-row justify-between items-center">
+							<p>Portfolio</p><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+								></path>
+							</svg>
+						</div>
+					</HeaderLink>
+					<HeaderLink
+						href="https://www.linkedin.com/in/jose-dls/"
+						target="_blank"
+					>
+						<div class="flex flex-row justify-between items-center">
+							<p>LinkedIn</p><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+								></path>
+							</svg>
+						</div>
+					</HeaderLink>
+					<HeaderLink
+						href="https://github.com/jose-dls/Astra"
+						target="_blank"
+					>
+						<div class="flex flex-row justify-between items-center">
+							<p>GitHub</p><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+								></path>
+							</svg>
+						</div>
+					</HeaderLink>
+				</div>
+			</div>
+		</div>
 	</nav>
 </header>
 
@@ -35,12 +115,94 @@ const { class: className, ...props } = Astro.props;
 		<h2 class="w-1/6 m-0 text-3xl font-bold">
 			<a href="/">{SITE_TITLE}</a>
 		</h2>
-		<div class="internal-links text-xl flex flex-row gap-5">
+		<div class="internal-links text-xl flex flex-row gap-5 hidden md:flex">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 		<Socials class="w-1/6 justify-end hidden md:flex" />
-		<SocialsDrop class="w-1/6 md:hidden" />
+		<div class="relative w-1/6 md:hidden">
+			<button
+				type="button"
+				class="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
+				aria-haspopup="true"
+				aria-expanded="false"
+				id="socials-toggle"
+				onclick="const m=this.nextElementSibling;m.classList.toggle('hidden');this.setAttribute('aria-expanded',m && !m.classList.contains('hidden'))"
+			>
+				<span>&#9776;</span>
+			</button>
+			<div
+				class="absolute right-0 mt-2 w-50 bg-lm-2 dark:bg-dm-2 border border-lm dark:border-dm rounded shadow-[0_5px_15px_-3px_rgba(0,0,0,0.1)] dark:shadow-[0_5px_10px_-3px_rgba(255,255,255,0.1)] z-50 hidden"
+				role="menu"
+				aria-labelledby="socials-toggle"
+			>
+				<div class="flex flex-col gap-2 p-4">
+					<HeaderLink href="/">Home</HeaderLink>
+					<HeaderLink href="/blog">Blog</HeaderLink>
+					<HeaderLink href="/about">About</HeaderLink>
+					<HeaderLink href="https://www.josedls.dev" target="_blank">
+						<div class="flex flex-row justify-between items-center">
+							<p>Portfolio</p><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+								></path>
+							</svg>
+						</div>
+					</HeaderLink>
+					<HeaderLink
+						href="https://www.linkedin.com/in/jose-dls/"
+						target="_blank"
+					>
+						<div class="flex flex-row justify-between items-center">
+							<p>LinkedIn</p><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+								></path>
+							</svg>
+						</div>
+					</HeaderLink>
+					<HeaderLink
+						href="https://github.com/jose-dls/Astra"
+						target="_blank"
+					>
+						<div class="flex flex-row justify-between items-center">
+							<p>GitHub</p><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+								></path>
+							</svg>
+						</div>
+					</HeaderLink>
+				</div>
+			</div>
+		</div>
 	</nav>
 </header>
