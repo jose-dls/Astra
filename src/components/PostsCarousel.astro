@@ -48,7 +48,7 @@ posts.forEach((post) => {
                         height={360}
                         src={post.data.heroImage}
                         alt=""
-                        class="w-50/100 flex-col items-center justify-center rounded-lg hidden lg:flex"
+                        class="w-50/100 flex-col items-center justify-center rounded-lg hidden lg:flex aspect-[16/9] object-cover"
                     />
                     <div class="flex-grow flex flex-col justify-center items-center gap-4">
                         <h4 class="title text-4xl text-center">{post.data.title}</h4>
