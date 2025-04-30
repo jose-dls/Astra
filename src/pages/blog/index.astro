@@ -317,7 +317,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 		<main class="grow flex-1 h-fit w-[90vw]">
 			<section class="h-fit flex flex-col">
 				<section
-					class="container-title bg-lm-2 dark:bg-dm-2 flex flex-col items-center h-fit m-10"
+					class="container-title flex flex-col items-center h-fit m-10"
 				>
 					<div class="flex flex-col items-center w-full gap-5">
 						<FadeMove direction="down">
@@ -336,7 +336,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 						<!-- Tags Filter Mobile -->
 						 <FadeMove direction="down" class="w-full h-fit block lg:hidden">
 							<aside
-							class="mb-10 tags w-full h-fit bg-lm-2 dark:bg-dm-2 block lg:hidden"
+							class="mb-10 tags w-full h-fit block lg:hidden"
 						>
 							<div
 								class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
@@ -474,7 +474,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 									class="pagination-controls flex justify-center gap-5 mt-10"
 								>
 									<button
-										class="pagination-prev px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-l-md cursor-pointer outline-1"
+										class="pagination-prev px-4 py-2 rounded-l-md cursor-pointer outline-1"
 										disabled
 									>
 										Previous
@@ -483,7 +483,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 										<!-- Page number buttons will be injected here -->
 									</div>
 									<button
-										class="pagination-next px-4 py-2 bg-lm-2 dark:bg-dm-2 rounded-r-md cursor-pointer outline-1"
+										class="pagination-next px-4 py-2 rounded-r-md cursor-pointer outline-1"
 										disabled
 									>
 										Next
@@ -494,7 +494,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 						<!-- Tags Filter Desktop -->
 						<FadeMove direction="left" class="w-3/10 h-fit hidden lg:block">
 							<aside
-								class="p-10 mx-10 tags h-fit bg-lm-2 dark:bg-dm-2 hidden lg:block"
+								class="p-10 mx-10 tags h-fit hidden lg:block"
 							>
 								<div
 									class="pb-5 flex flex-row justify-between items-center flex-wrap gap-5"
@@ -544,7 +544,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 												<label class="flex flex-row items-center gap-2 cursor-pointer">
 													<input
 														type="checkbox"
-														class="m-w-4 m-h-4 accent-lm-2 dark:accent-dm-2 border-2 border-lm-txt dark:border-dm-txt"
+														class="m-w-4 m-h-4 accent-lm-txt dark:accent-dm-txt border-2 border-lm-txt dark:border-dm-txt"
 														onchange={`filterPosts('${tag.toLowerCase()}')`}
 													/>
 													<span class="tag-btn hover:text-lm-accent dark:hover:text-dm-accent text-wrap break-all">

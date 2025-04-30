@@ -48,9 +48,11 @@ const usedTags = Array.from(uniqueTags);
 						<div
 							class="title w-full flex flex-col items-start md:flex-row md:items-end justify-between flex-wrap gap-5"
 						>
-							<FadeMove direction="down" class="flex flex-col md:w-1/2">
-								<h1 class="font-bold text-[min(7vw,50px)]">{title}</h1>
-								<p>{description}</p>
+							<FadeMove direction="down" class="md:w-1/2">
+								<div class="flex flex-col gap-5">
+									<h1 class="font-bold text-[min(7vw,50px)]">{title}</h1>
+									<p>{description}</p>
+								</div>
 							</FadeMove>
 							<FadeMove direction="down">
 								<div class="date md:text-2xl md:text-right text-wrap">
