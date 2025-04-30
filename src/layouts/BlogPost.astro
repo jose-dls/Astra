@@ -85,7 +85,7 @@ const usedTags = Array.from(uniqueTags);
 				</FadeIn>
 
 				<Divider class="mb-10" />
-				<FadeIn>
+				<FadeMove direction="left">
 					<ul
 						class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center mb-10"
 					>
@@ -108,7 +108,7 @@ const usedTags = Array.from(uniqueTags);
 							)
 						}
 					</ul>
-				</FadeIn>
+				</FadeMove>
 				<FadeMove direction="right">
 					<div class="markdown-blog">
 						<slot />
