@@ -434,6 +434,11 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 																	.pubDate
 															}
 														/>
+														{post.data.updatedDate && (
+															<>
+															 | Last Updated: <FormattedDate date={post.data.updatedDate} />
+															</>
+														)}
 													</p>
 												</a>
 												<ul class="tags flex flex-row flex-wrap gap-2 mt-2">
