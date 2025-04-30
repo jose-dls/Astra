@@ -45,26 +45,15 @@ const usedTags = Array.from(uniqueTags);
 					<div
 						class="hero-image flex flex-col items-center justify-between gap-5 mb-10"
 					>
-					<FadeMove direction="up">
-						{
-							heroImage && (
-								<img
-									width={1020}
-									height={510}
-									src={heroImage}
-									alt=""
-								/>
-							)
-						}
-					</FadeMove>
 						<div
-							class="title w-full flex flex-row items-center justify-between flex-wrap"
+							class="title w-full flex flex-col items-start md:flex-row md:items-end justify-between flex-wrap gap-5"
 						>
-							<FadeMove direction="down">
-								<h1 class="font-bold text-2xl">{title}</h1>
+							<FadeMove direction="down" class="flex flex-col md:w-1/2">
+								<h1 class="font-bold text-[min(7vw,50px)]">{title}</h1>
+								<p>{description}</p>
 							</FadeMove>
-							<FadeMove direction="down">
-								<div class="date text-2xl text-right">
+							<FadeMove direction="down" class="">
+								<div class="date md:text-2xl">
 									<FormattedDate date={pubDate} />
 									{
 										updatedDate && (
@@ -79,6 +68,19 @@ const usedTags = Array.from(uniqueTags);
 								</div>
 							</FadeMove>
 						</div>
+						<FadeMove direction="up" class="w-full">
+							{
+								heroImage && (
+									<img
+										width={1020}
+										height={510}
+										src={heroImage}
+										alt=""
+										class="w-full"
+									/>
+								)
+							}
+						</FadeMove>
 					</div>
 				</FadeIn>
 
