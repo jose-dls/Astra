@@ -1,5 +1,5 @@
 ---
-const { class: className, text = '&#9776;', buttonClass, name="Dropdown", contain = false } = Astro.props;
+const { class: className, buttonClass, name = "Dropdown", contain = false } = Astro.props;
 ---
 
 <div class:list={["relative", className]}>
@@ -9,17 +9,19 @@ const { class: className, text = '&#9776;', buttonClass, name="Dropdown", contai
         aria-haspopup="true"
         aria-expanded="false"
         onclick="const m=this.nextElementSibling;m.classList.toggle('hidden');this.setAttribute('aria-expanded',m && !m.classList.contains('hidden'))"
-        set:html={text}
         name={name}
         aria-label={name}
     >
+        <slot name="button">&#9776;</slot>
     </button>
     <div
-        class=`${contain ? "" : "absolute w-50 shadow-[0_5px_15px_-3px_rgba(0,0,0,0.1)] dark:shadow-[0_5px_10px_-3px_rgba(255,255,255,0.1)]"} right-0 mt-2 bg-lm-bg dark:bg-dm-bg border border-lm dark:border-dm rounded z-50 hidden`
+        class={`${
+            contain ? "" : "absolute w-50 shadow-[0_5px_15px_-3px_rgba(0,0,0,0.1)] dark:shadow-[0_5px_10px_-3px_rgba(255,255,255,0.1)]"
+        } right-0 mt-2 bg-lm-bg dark:bg-dm-bg border border-lm dark:border-dm rounded z-50 hidden`}
         role="menu"
-        aria-labelledby="dropwdown"
+        aria-labelledby="dropdown"
     >
-        <div class=`flex flex-col gap-2 ${contain ? "" : "p-4"}`>
+        <div class={`flex flex-col gap-2 ${contain ? "" : "p-4"}`}>
             <slot />
         </div>
     </div>

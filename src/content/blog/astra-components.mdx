@@ -1,0 +1,200 @@
+---
+title: 'Astra Components'
+description: 'A showcase of custom components for Astra.'
+pubDate: 'May 1 2025'
+heroImage: '/astra-placeholder-2.webp'
+tags: ['Astra']
+---
+
+This theme comes with some custom components to help you with styling your blog.
+
+## Animations (@/anim)
+
+There are currently 4 animation components. You might have already noticed them when browsing the site.
+
+### Divider
+
+The Divider.astro component provides a simple way to separate sections in your blog.
+
+```tsx
+import Divider from '@anim/Divider.astro'
+
+<Divider />
+```
+
+#### Output:
+
+import Divider from '@anim/Divider.astro'
+
+<Divider />
+
+### FadeIn
+
+The `FadeIn.astro` component creates a fade in animation when loading the page.
+
+You can use the "duration" and "delay" properties to modify the behavior of the animations.
+
+Since this blog layout already has an animation, we will set these properties to non-default values to make them distinct.
+
+```tsx
+import FadeIn from '@anim/FadeIn.astro'
+
+<FadeIn duration="2s" delay="3s">
+	<p>I am a child element of the FadeIn element.</p>
+</FadeIn>
+```
+
+#### Output:
+
+import FadeIn from '@anim/FadeIn.astro'
+
+<FadeIn duration="2s" delay="3s">
+	<p>I am a child element of the FadeIn element. I am fading in.</p>
+</FadeIn>
+
+### MoveIn
+
+The `MoveIn.astro` component creates a move in animation when loading the page.
+
+Much like the `FadeIn` component, you can use the "duration" and "delay" properties to modify the behavior of the animations.
+You can also set the "direction" property to either `up`, `down`, `left`, or `right` to change the movement of the animation.
+
+Since this blog layout already has an animation, we will set these properties to non-default values to make them distinct.
+
+```tsx
+import MoveIn from '@anim/MoveIn.astro'
+
+<MoveIn duration="2s" delay="3s" direction="up">
+	<p>I am a child element of the MoveIn element. I am moving up!</p>
+</MoveIn>
+```
+
+#### Output:
+
+import MoveIn from '@anim/MoveIn.astro'
+
+<MoveIn duration="2s" delay="3s" direction="up">
+	<p>I am a child element of the MoveIn element. I am moving up!</p>
+</MoveIn>
+
+### FadeMove
+
+The `FadeMove.astro` component combined both the `FadeIn` component and the `MoveIn` component.
+
+You can pass in the same properties you would normally pass to `FadeIn` or `MoveIn`.
+
+This is the default animation I have used throughout the site! We will set these properties to non-default values to make them distinct.
+
+```tsx
+import FadeMove from '@anim/FadeMove.astro'
+
+<FadeMove duration="2s" delay="3s" direction="left">
+	<p>I am a child element of the FadeMove element. I am both fading in and moving left!</p>
+</FadeMove>
+```
+
+#### Output:
+
+import FadeMove from '@anim/FadeMove.astro'
+
+<FadeMove duration="2s" delay="3s" direction="left">
+	<p>I am a child element of the FadeMove element. I am both fading in and moving left!</p>
+</FadeMove>
+
+## Other (@components)
+
+There are some other components you can use to add functionality to the site.
+
+### ModeToggle
+
+`ModeToggle.tsx` is a [shadcn/ui](https://ui.shadcn.com/docs/dark-mode/astro) component that allows you to switch between a light and dark theme.
+Currently, it's been configured to stay hovering in the bottom right corner of the screen.
+
+### Socials
+
+You can add your socials in `Socials.astro` and `SocialsText.astro` to link to external sites. Currently they've been configured to my Portfolio,
+my LinkedIn, and this themes GitHub repository. Feel free to change the links and add more if needed.
+
+```tsx
+import Socials from '@components/Socials.astro'
+import SocialsText from '@components/SocialsText.astro'
+
+<Socials />
+<SocialsText />
+```
+
+#### Output:
+
+import Socials from '@components/Socials.astro'
+import SocialsText from '@components/SocialsText.astro'
+
+<Socials />
+<SocialsText/>
+
+<br />
+Please note that the `SocialsText` links have been automatically given an underline due to the blog post layout styling. You can see the component
+in action in the footer.
+
+## Carousel
+
+You can use the `Carousel.astro` component to create a simple carousel slideshow with `CarouselSlide.astro` children.
+
+Alternatively, you can use the `PostsCarousel.astro` component to populate a carousel with your blog posts.
+It will display the 5 latest posts. However, you can set the "limit" property to change how many posts to fetch, or set it to 0 (or below)
+to use all posts.
+
+```tsx
+import PostsCarousel from '@components/PostsCarousel.astro'
+
+<PostsCarousel limit="2" />
+```
+
+#### Output:
+
+import PostsCarousel from '@components/PostsCarousel.astro'
+
+<PostsCarousel limit="2" />
+
+## Dropdown
+
+You can create a dropdown menu using `Dropdown.astro`. By default the menu creates a floating dropdown, however,
+you can add the "contain" property to show dropdown elements within the container. Include an element with `slot="button"`
+to change the button. By default it is a hamburger menu.
+
+```tsx
+import Dropdown from '@components/Dropdown.astro'
+import HeaderLink from '@components/HeaderLink.astro'
+
+<div class="flex flex-row gap-5">
+	<Dropdown class="w-1/6">
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+
+	<Dropdown class="w-1/6" contain>
+		<p slot="button">Dropdown</p>
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+</div>
+```
+
+import Dropdown from '@components/Dropdown.astro'
+import HeaderLink from '@components/HeaderLink.astro'
+
+<div class="flex flex-row gap-5">
+	<Dropdown class="w-1/6">
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+
+	<Dropdown class="w-1/6" contain>
+		<p slot="button">Dropdown</p>
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+</div>

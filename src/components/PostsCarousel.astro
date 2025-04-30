@@ -19,7 +19,9 @@ let posts = (await getCollection("blog")).sort(
 );
 
 // Limit the posts to the latest `limit` posts
-posts = posts.slice(0, limit);
+if (limit > 0) {
+    posts = posts.slice(0, limit);
+}
 
 const tagCounts: Record<string, number> = {};
 const uniqueTags = new Set<string>();
@@ -41,7 +43,7 @@ posts.forEach((post) => {
             >
                 <a
                     href={`/blog/${post.id}/`}
-                    class="flex flex-row justify-center items-center gap-10 mx-20"
+                    class="flex flex-row justify-center items-center gap-10 mx-20 !no-underline"
                 >
                     <img
                         width={720}
@@ -60,7 +62,7 @@ posts.forEach((post) => {
                                 </>
                             )}
                         </p>
-                        <ul class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center">
+                        <ul class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center !list-none !p-0 !m-0">
                             {post.data.tags && post.data.tags.length > 0 && (
                                 post.data.tags.map((tag) => (
                                     <li>
