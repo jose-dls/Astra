@@ -1,9 +1,9 @@
 ---
-const { class: className, buttonClass, name = "Dropdown", contain = false, spawnX = "right", spawnCustom } = Astro.props;
+const { class: className, buttonClass, name = "Dropdown", contain = false, spawnX = "left", spawnCustom } = Astro.props;
 
 // Determine the spawn location
-let spawnXFrom = 'right-0';
-if (spawnX.toLowerCase() === 'left') spawnXFrom = 'left-0';
+let spawnXFrom = 'left-0';
+if (spawnX.toLowerCase() === 'right') spawnXFrom = 'right-0';
 ---
 
 <div class:list={["relative", className]}>
