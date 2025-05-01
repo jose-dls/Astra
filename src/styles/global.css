@@ -58,6 +58,37 @@
 	font-display: swap;
 }
 
+/* Minimalist scrollbar styles */
+::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+	/* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.0);
+	/* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--color-lm-txt);
+	/* Light mode color */
+	border-radius: 4px;
+	/* Rounded corners for the scrollbar thumb */
+	cursor: default;
+	/* Regular cursor */
+}
+
+/* Dark Mode Scrollbar Thumb */
+.dark ::-webkit-scrollbar-thumb {
+	background-color: var(--color-dm-txt);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	cursor: default;
+	/* Regular cursor on hover */
+}
+
 .markdown-blog h1 {
 	@apply text-4xl font-bold mt-10 mb-6;
 }
@@ -292,10 +323,11 @@ body {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+	* {
+		@apply border-border outline-ring/50;
 	}
-  body {
-    @apply bg-background text-foreground;
+
+	body {
+		@apply bg-background text-foreground;
 	}
 }
