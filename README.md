@@ -88,10 +88,10 @@ Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🛠️ Tech Stack
 
-* **Framework:** Astro v5.7.5
-* **Styling:** Tailwind CSS v4.1.4
-* **UI Library:** shadcn/ui (for ModeToggle.tsx: https://ui.shadcn.com/docs/dark-mode/astro)
-* **Icons:** Font Awesome v6.7.2 (https://fontawesome.com/)
+* **Framework:** [Astro v5.7.5](https://astro.build/)
+* **Styling:** [Tailwind CSS v4.1.4](https://tailwindcss.com/)
+* **UI Library:** [shadcn/ui (for ModeToggle.tsx)](https://ui.shadcn.com/docs/dark-mode/astro)
+* **Icons:** [Font Awesome v6.7.2](https://fontawesome.com/)
 
 ## 🧞 Commands
 
