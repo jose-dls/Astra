@@ -3,7 +3,7 @@ title: 'Markdown Style Guide'
 description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
 pubDate: 'Jun 19 2024'
 updatedDate: 'Jun 19 2024'
-heroImage: '/astra-placeholder-1.webp'
+heroImage: '/images/astra-placeholder-1.webp'
 tags: ['Tutorial', 'Guide', 'Markdown']
 ---
 
@@ -43,7 +43,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Output
 
-![blog placeholder](/astra-placeholder-1.webp)
+![blog placeholder](/images/astra-placeholder-1.webp)
 
 ## Blockquotes
 
