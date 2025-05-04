@@ -93,6 +93,28 @@ Any static assets, like images, can be placed in the `public/` directory.
 * **UI Library:** [shadcn/ui (for ModeToggle.tsx)](https://ui.shadcn.com/docs/dark-mode/astro)
 * **Icons:** [Font Awesome v6.7.2](https://fontawesome.com/)
 
+## 🚀 Installation
+
+### **Astro Installation**
+
+```bash
+npm create astro@latest -- --template jose-dls/Astra
+```
+
+### **Manual Installation**
+
+Clone the repository
+
+```bash
+git clone https://github.com/jose-dls/Astra.git
+```
+
+Install the dependencies
+
+```bash
+npm install
+```
+    
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
