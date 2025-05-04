@@ -1,0 +1,28 @@
+---
+const { class: className, ...props } = Astro.props;
+---
+
+<style>
+    @keyframes sweep {
+        0% {
+            width: 0%;
+            opacity: 0;
+        }
+        100% {
+            width: 100%;
+            opacity: 1;
+        }
+    }
+
+    .divider-animate {
+        animation: sweep 1s ease-out forwards;
+    }
+</style>
+
+<div
+    class:list={["w-full h-[1px] relative overflow-hidden", className]}
+    {...props}
+>
+    <div class="absolute h-full bg-lm-accent dark:bg-dm-accent divider-animate">
+    </div>
+</div>

@@ -1,0 +1,113 @@
+---
+const { width = "100%", height = "100%", class: className } = Astro.props;
+
+function generateUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+const uniqueId = `carouselTrack-${generateUUID()}`;
+---
+
+<style>
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    width: var(--carousel-width, 100%);
+    height: var(--carousel-height, 300px);
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+  }
+
+  .prev {
+    left: 0.5rem;
+  }
+
+  .next {
+    right: 0.5rem;
+  }
+</style>
+
+<div
+  class:list={["carousel", className]}
+  style={`--carousel-width: ${width}; --carousel-height: ${height};`}
+>
+  <button class="carousel-button rounded-full outline prev" onclick={`prevSlide('${uniqueId}')`}
+    >‹</button
+  >
+  <div class="carousel-track" id={uniqueId}>
+    <slot />
+  </div>
+  <button class="carousel-button rounded-full outline next" onclick={`nextSlide('${uniqueId}')`}
+    >›</button
+  >
+</div>
+
+<script is:inline>
+  const carouselState = {};
+
+  function updateSlide(id) {
+    const track = document.getElementById(id);
+    if (!track) return;
+    const index = carouselState[id] ?? 0;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function nextSlide(id) {
+    const track = document.getElementById(id);
+    if (!track) return;
+    const slides = track.children.length;
+    carouselState[id] = ((carouselState[id] ?? 0) + 1) % slides;
+    updateSlide(id);
+  }
+
+  function prevSlide(id) {
+    const track = document.getElementById(id);
+    if (!track) return;
+    const slides = track.children.length;
+    carouselState[id] = ((carouselState[id] ?? 0) - 1 + slides) % slides;
+    updateSlide(id);
+  }
+
+  // Optional: Touch support (attached once per page)
+  if (!window.__carouselTouchSetup) {
+    window.__carouselTouchSetup = true;
+
+    let startX = 0;
+    let endX = 0;
+
+    document.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    document.addEventListener("touchend", (e) => {
+      endX = e.changedTouches[0].clientX;
+      const delta = startX - endX;
+      if (Math.abs(delta) > 50) {
+        const carousels = document.querySelectorAll(".carousel-track");
+        carousels.forEach((track) => {
+          const id = track.id;
+          if (delta > 0) nextSlide(id);
+          else prevSlide(id);
+        });
+      }
+    });
+  }
+</script>

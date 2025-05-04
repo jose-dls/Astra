@@ -1,0 +1,124 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseBody from "./BaseBody.astro";
+import Divider from "@/components/anim/Divider.astro";
+import FadeIn from "@/components/anim/FadeIn.astro";
+import FadeMove from "@/components/anim/FadeMove.astro";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, pubDate, updatedDate, heroImage, tags } =
+	Astro.props;
+
+const formatTag = (tag: string) => {
+	return tag
+		.toLowerCase()
+		.split(" ")
+		.map((word) => word.charAt(0)?.toUpperCase() + word.slice(1))
+		.join(" ");
+};
+
+const tagCounts: Record<string, number> = {};
+let uniqueTags = new Set<string>();
+(tags || []).forEach((tag) => {
+	const normalizedTag = tag?.toLowerCase();
+	tagCounts[normalizedTag] = (tagCounts[normalizedTag] || 0) + 1;
+	uniqueTags.add(normalizedTag);
+});
+const usedTags = Array.from(uniqueTags);
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<BaseBody class="gap-10">
+		<Header />
+		<main class="max-w-[70vw] min-w-[70vw]">
+			<article>
+				<FadeIn>
+					<div
+						class="hero-image flex flex-col items-center justify-between gap-5 mb-10"
+					>
+						<div
+							class="title w-full flex flex-col items-start md:flex-row md:items-end justify-between flex-wrap gap-5"
+						>
+							<FadeMove direction="down" class="md:w-1/2">
+								<div class="flex flex-col gap-5">
+									<h1 class="font-bold text-[min(7vw,50px)]">{title}</h1>
+									<p>{description}</p>
+								</div>
+							</FadeMove>
+							<FadeMove direction="down">
+								<div class="date md:text-2xl md:text-right text-wrap">
+									<FormattedDate date={pubDate} />
+									{
+										updatedDate && (
+											<div class="last-updated-on flex flex-row flex-wrap gap-2">
+												Updated:{" "}
+												<FormattedDate
+													date={updatedDate}
+												/>
+											</div>
+										)
+									}
+								</div>
+							</FadeMove>
+						</div>
+						<FadeMove direction="up" class="w-full">
+							{
+								heroImage && (
+									<img
+										width={1020}
+										height={510}
+										src={heroImage}
+										alt={title}
+										class="w-full"
+										loading="lazy"
+									/>
+								)
+							}
+						</FadeMove>
+					</div>
+				</FadeIn>
+
+				<Divider class="mb-10" />
+				<FadeMove direction="left">
+					<ul
+						class="tags w-full flex flex-row flex-wrap gap-2 mt-2 justify-center mb-10"
+					>
+						{
+							usedTags && usedTags.length > 0 ? (
+								usedTags.map((tag) => (
+									<li>
+										<button
+											class="hover:text-lm-accent dark:hover:text-dm-accent bg-lm-bg dark:bg-dm-bg outline-1 inline-flex items-center rounded-md font-medium text-sm px-3 py-1"
+											data-tag={tag.toLowerCase()}
+										>
+											{formatTag(tag)}
+										</button>
+									</li>
+								))
+							) : (
+								<li>
+									<br />
+								</li>
+							)
+						}
+					</ul>
+				</FadeMove>
+				<FadeMove direction="right">
+					<div class="markdown-blog">
+						<slot />
+					</div>
+				</FadeMove>
+			</article>
+		</main>
+		<Footer />
+	</BaseBody>
+</html>

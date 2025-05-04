@@ -1,0 +1,189 @@
+---
+title: 'Astra Components'
+description: 'A showcase of custom components for Astra.'
+pubDate: 'May 1 2025'
+heroImage: '/images/astra-placeholder-3.webp'
+tags: ['Astra']
+---
+
+The Astra theme comes with several custom components designed to enhance your blogging experience by adding interactive and aesthetic elements to your website. Below are details for the most common components you can use.
+
+## Animations (@/anim)
+
+The theme provides four animation components that you can use to bring your content to life. You may have already noticed them in action on the site!
+
+### Divider
+
+The `Divider.astro` component is used to separate different sections in your blog for a clean, organised layout.
+
+```tsx
+import Divider from '@anim/Divider.astro'
+
+<Divider />
+```
+
+#### Output:
+
+import Divider from '@anim/Divider.astro'
+
+<Divider />
+
+### FadeIn
+
+The `FadeIn.astro` component creates a smooth fade-in animation when a page loads. You can control the animation's behavior by adjusting the `duration` and `delay` properties.
+
+Since this blog layout already has an animation, we will adjust these properties to make them distinct.
+
+
+```tsx
+import FadeIn from '@anim/FadeIn.astro'
+
+<FadeIn duration="2s" delay="3s">
+	<p>I am a child element of the FadeIn element.</p>
+</FadeIn>
+```
+
+#### Output:
+
+import FadeIn from '@anim/FadeIn.astro'
+
+<FadeIn duration="2s" delay="3s">
+	<p>I am a child element of the FadeIn element. I am fading in.</p>
+</FadeIn>
+
+### MoveIn
+
+The `MoveIn.astro` component creates an animation that moves the element in from a specific direction when the page loads. You can adjust the direction (up, down, left, or right) as well as `duration` and `delay` for customisation.
+
+Since this blog layout already has an animation, we will adjust these properties to make them distinct.
+
+```tsx
+import MoveIn from '@anim/MoveIn.astro'
+
+<MoveIn duration="2s" delay="3s" direction="up">
+	<p>I am a child element of the MoveIn element. I am moving up!</p>
+</MoveIn>
+```
+
+#### Output:
+
+import MoveIn from '@anim/MoveIn.astro'
+
+<MoveIn duration="2s" delay="3s" direction="up">
+	<p>I am a child element of the MoveIn element. I am moving up!</p>
+</MoveIn>
+
+### FadeMove
+
+The `FadeMove.astro` component combines the `FadeIn` and `MoveIn` animations, creating an effect where the element fades in and moves simultaneously. You can pass the same properties as the other two components to customise the animation.
+
+This is the default animation used throughout the site. Adjust the values for unique effects.
+
+```tsx
+import FadeMove from '@anim/FadeMove.astro'
+
+<FadeMove duration="2s" delay="3s" direction="left">
+	<p>I am a child element of the FadeMove element. I am both fading in and moving left!</p>
+</FadeMove>
+```
+
+#### Output:
+
+import FadeMove from '@anim/FadeMove.astro'
+
+<FadeMove duration="2s" delay="3s" direction="left">
+	<p>I am a child element of the FadeMove element. I am both fading in and moving left!</p>
+</FadeMove>
+
+## Other (@components)
+
+In addition to animation components, there are several other useful components that add functionality to your site.
+
+### ModeToggle
+
+`ModeToggle.tsx` is a [shadcn/ui](https://ui.shadcn.com/docs/dark-mode/astro) component that enables users to toggle between light and dark themes. By default, it stays fixed in the bottom right corner of the screen.
+
+### Socials
+
+The `Socials.astro` and `SocialsText.astro` components allow you to easily add links to your social media profiles or other external sites. These components are pre-configured with links to my Portfolio, LinkedIn, and the GitHub repository for the Astra theme. You can modify these links or add more as needed.
+
+```tsx
+import Socials from '@components/Socials.astro'
+import SocialsText from '@components/SocialsText.astro'
+
+<Socials />
+<SocialsText />
+```
+
+#### Output:
+
+import Socials from '@components/Socials.astro'
+import SocialsText from '@components/SocialsText.astro'
+
+<Socials />
+<SocialsText />
+
+<br />
+> Please note that the `SocialsText` links have been automatically given an underline due to the blog post layout styling (for `<a>` elements). You can see the component
+in action in the footer.
+
+## Carousel
+
+The `Carousel.astro` component creates a simple carousel slideshow, and you can add individual slides using `CarouselSlide.astro`. Alternatively, you can use the `PostsCarousel.astro` component to display a carousel of blog posts.
+
+By default, `PostsCarousel` shows the 5 most recent posts, but you can change this by adjusting the `limit` property. If you set the `limit` to 0 or any negative number, it will display all available posts.
+
+```tsx
+import PostsCarousel from '@components/PostsCarousel.astro'
+
+<PostsCarousel limit="2" />
+```
+
+#### Output:
+
+import PostsCarousel from '@components/PostsCarousel.astro'
+
+<PostsCarousel limit="2" />
+
+## Dropdown
+
+Use the `Dropdown.astro` component to create a dropdown menu. By default, the dropdown will float, but you can use the `contain` property to have it appear within its container. Customise the button by including an element with the `slot="button"` attribute (otherwise, the default button is a hamburger menu).
+You can also use the `spawnX` property to determine if the floating dropdown will pop out from the left or right.
+
+```tsx
+import Dropdown from '@components/Dropdown.astro'
+import HeaderLink from '@components/HeaderLink.astro'
+
+<div class="flex flex-row gap-5">
+	<Dropdown class="w-1/6" spawnX="left">
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+
+	<Dropdown class="w-1/6" spawnX="left" contain>
+		<p slot="button">Dropdown</p>
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+</div>
+```
+
+import Dropdown from '@components/Dropdown.astro'
+import HeaderLink from '@components/HeaderLink.astro'
+
+<div class="flex flex-row gap-5">
+	<Dropdown class="w-1/6" spawnX="left">
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+
+	<Dropdown class="w-1/6" spawnX="left" contain>
+		<p slot="button">Dropdown</p>
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</Dropdown>
+</div>

@@ -1,0 +1,13 @@
+---
+import FadeIn from "./FadeIn.astro";
+import MoveIn from "./MoveIn.astro";
+
+// Props (optional): duration, delay
+const { duration = '1s', delay = '0s', direction = "up", class: ClassName } = Astro.props;
+---
+
+<FadeIn duration={duration} delay={delay} class={ClassName}>
+    <MoveIn duration={duration} delay={delay} direction={direction}>
+        <slot />
+    </MoveIn>
+</FadeIn>

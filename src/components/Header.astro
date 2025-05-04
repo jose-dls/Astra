@@ -1,0 +1,286 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
+import Socials from "./Socials.astro";
+import Dropdown from "./Dropdown.astro";
+
+const { class: className, ...props } = Astro.props;
+---
+
+<header
+	class:list={[
+		"bg-lm-hd dark:bg-dm-hd w-full m-0 p-5 shadow-[0_5px_8px_rgba(0,0,0,0.05)] dark:shadow-[0_5px_8px_rgba(255,255,255,0.05)]",
+		className,
+	]}
+	{...props}
+>
+	<nav class="flex flex-row justify-between items-center">
+		<h2 class="w-1/6 m-0 text-3xl font-bold">
+			<a href="/">{SITE_TITLE}</a>
+		</h2>
+		<div
+			class="internal-links text-xl flex flex-row gap-5 hidden md:flex items-center"
+		>
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<Dropdown name="Features">
+				<div
+					slot="button"
+					class="flex flex-row gap-2 justify-center items-center"
+				>
+					<p
+						class="inline-block no-underline rounded-lg text-lg hover:underline underline-offset-8 transition-all"
+					>
+						Features
+					</p>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+					</svg>
+				</div>
+				<HeaderLink href="/404">404</HeaderLink>
+			</Dropdown>
+		</div>
+		<Socials class="w-1/6 justify-end hidden md:flex" />
+		<Dropdown class="w-1/6 md:hidden" spawnX="right">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<Dropdown buttonClass="w-full p-2" name="Features" contain>
+				<div
+					slot="button"
+					class="flex flex-row gap-2 justify-between items-center w-full"
+				>
+					<p
+						class="inline-block no-underline rounded-lg text-lg hover:underline underline-offset-8 transition-all"
+					>
+						Features
+					</p>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+					</svg>
+				</div>
+				<HeaderLink href="/404">404</HeaderLink>
+			</Dropdown>
+			<HeaderLink href="https://www.josedls.dev" target="_blank">
+				<div class="flex flex-row justify-between items-center">
+					<p>Portfolio</p><svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+						></path>
+					</svg>
+				</div>
+			</HeaderLink>
+			<HeaderLink
+				href="https://www.linkedin.com/in/jose-dls/"
+				target="_blank"
+			>
+				<div class="flex flex-row justify-between items-center">
+					<p>LinkedIn</p><svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+						></path>
+					</svg>
+				</div>
+			</HeaderLink>
+			<HeaderLink
+				href="https://github.com/jose-dls/Astra"
+				target="_blank"
+			>
+				<div class="flex flex-row justify-between items-center">
+					<p>GitHub</p><svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+						></path>
+					</svg>
+				</div>
+			</HeaderLink>
+		</Dropdown>
+	</nav>
+</header>
+
+<header
+	class:list={[
+		"fixed top-0 z-100 left-0 bg-lm-hd dark:bg-dm-hd w-screen mr-0 p-5 px-10 outline-1",
+		className,
+	]}
+	{...props}
+>
+	<nav class="flex flex-row justify-between items-center">
+		<h2 class="w-1/6 m-0 text-3xl font-bold">
+			<a href="/">{SITE_TITLE}</a>
+		</h2>
+		<div
+			class="internal-links text-xl flex flex-row gap-5 hidden md:flex items-center"
+		>
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<Dropdown name="Features">
+				<div
+					slot="button"
+					class="flex flex-row gap-2 justify-center items-center"
+				>
+					<p
+						class="inline-block no-underline rounded-lg text-lg hover:underline underline-offset-8 transition-all"
+					>
+						Features
+					</p>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+					</svg>
+				</div>
+				<HeaderLink href="/404">404</HeaderLink>
+			</Dropdown>
+		</div>
+		<Socials class="w-1/6 justify-end hidden md:flex" />
+		<Dropdown class="w-1/6 md:hidden" spawnX="right">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<Dropdown buttonClass="w-full p-2" name="Features" contain>
+				<div
+					slot="button"
+					class="flex flex-row gap-2 justify-between items-center w-full"
+				>
+					<p
+						class="inline-block no-underline rounded-lg text-lg hover:underline underline-offset-8 transition-all"
+					>
+						Features
+					</p>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+					</svg>
+				</div>
+				<HeaderLink href="/404">404</HeaderLink>
+			</Dropdown>
+			<HeaderLink href="https://www.josedls.dev" target="_blank">
+				<div class="flex flex-row justify-between items-center">
+					<p>Portfolio</p><svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+						></path>
+					</svg>
+				</div>
+			</HeaderLink>
+			<HeaderLink
+				href="https://www.linkedin.com/in/jose-dls/"
+				target="_blank"
+			>
+				<div class="flex flex-row justify-between items-center">
+					<p>LinkedIn</p><svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+						></path>
+					</svg>
+				</div>
+			</HeaderLink>
+			<HeaderLink
+				href="https://github.com/jose-dls/Astra"
+				target="_blank"
+			>
+				<div class="flex flex-row justify-between items-center">
+					<p>GitHub</p><svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+						></path>
+					</svg>
+				</div>
+			</HeaderLink>
+		</Dropdown>
+	</nav>
+</header>

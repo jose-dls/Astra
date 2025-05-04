@@ -1,0 +1,38 @@
+---
+const { class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "social-links flex flex-row gap-5 items-center ",
+    className,
+  ]}
+>
+  <div class="flex flex-row gap-2">
+    <a
+      href="https://www.josedls.dev"
+      target="_blank"
+      class="flex items-center gap-2 hover:text-lm-accent dark:hover:text-dm-accent hover:underline underline-offset-2 transition-all"
+    >
+      <span class="sr-only">Check out my portfolio!</span>
+      Portfolio
+    </a>
+    <a
+      href="https://www.linkedin.com/in/jose-dls/"
+      target="_blank"
+      class="flex items-center gap-2 hover:text-lm-accent dark:hover:text-dm-accent hover:underline underline-offset-2 transition-all"
+    >
+      <span class="sr-only">Connect with me on LinkedIn</span>
+      LinkedIn
+    </a>
+    <a
+      href="https://github.com/jose-dls/Astra"
+      target="_blank"
+      class="flex items-center gap-2 hover:text-lm-accent dark:hover:text-dm-accent hover:underline underline-offset-2 transition-all"
+    >
+      <span class="sr-only">Go to this blog's GitHub Repo</span>
+      GitHub
+    </a>
+    <slot />
+  </div>
+</div>
