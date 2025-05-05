@@ -128,8 +128,13 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## Credit
+## 💡 Credit
 
 This theme is built on the official Astro [blog](https://github.com/withastro/astro/tree/main/examples/blog) template generated using `npm create astro@latest` which is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
 
 With that being said, _a lot_ of the content/styling has been modified and only the base logic remains the same. Please do check out the lovely templates mentioned above.
+
+## 📝 License
+
+This project is licensed under the [MIT License](LICENSE)  
+Copyright (c) 2025 J. De Los Santos
