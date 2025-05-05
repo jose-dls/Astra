@@ -94,9 +94,9 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 				);
 
 				// Enable/disable buttons based on current page
-				(prevBtn as HTMLButtonElement).disabled = currentPage === 1;
+				(prevBtn as HTMLButtonElement).disabled = currentPage === 1 || totalPages === 0;
 				(nextBtn as HTMLButtonElement).disabled =
-					currentPage === totalPages;
+					currentPage === totalPages || totalPages === 0;
 
 				// Clear existing page numbers
 				if (pageNumbersContainer) {
@@ -340,10 +340,10 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 						>
 							<div
 								class="pb-5 flex flex-row justify-between items-center flex-wrap cursor-pointer"
-								onclick="toggleTags()"
 							>
 								<h2
 									class="text-2xl font-bold flex flex-row items-center gap-2"
+									onclick="toggleTags()"
 								>
 									<span class="toggleTagsButton">
 										<svg
